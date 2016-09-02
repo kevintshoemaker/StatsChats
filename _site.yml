@@ -1,0 +1,9 @@
+name: "Stats_Chats"
+output_dir: "."
+navbar:
+  title: "Math/Bio Stats Chats"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Links"
+      href: Links.html

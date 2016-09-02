@@ -33,6 +33,9 @@ $Stats Chats$ is an informal weekly gathering to discuss any quantitative questi
  * **What?** Topics we have in mind include questions about Statistics, Experimental Design, Model Simulation & Analysis, Debugging R code, etc.  We may eventually narrow the focus if needed, but for now, anything you can reasonably describe as quantitative is fair game! Please plan on focusing on a single, well formed question (or two) so we can make good use of the hour.   
  * **When?** TBD
 
+![](StatsCartoon1.gif)
+
+
 
 
 

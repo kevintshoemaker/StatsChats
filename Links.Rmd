@@ -13,7 +13,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Please let me know if there are other links that you think should be included on this page!
+Please let Paul or Kevin know if there are other links that you think should be included on this page!
 
 ## Download R and related software:
  [CRAN website](https://cran.r-project.org/)  

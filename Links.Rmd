@@ -1,6 +1,6 @@
 ---
 title: "Links"
-author: "NRES 746"
+author: "Stats Chats"
 date: ""
 output: 
   html_document: 

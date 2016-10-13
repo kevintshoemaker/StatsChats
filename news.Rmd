@@ -1,12 +1,31 @@
 ---
 title: "News"
-author: "NRES 746"
+author: "Stats Chats"
 date: "October 10, 2016"
-output: html_document
+output: 
+  html_document: 
+    theme: flatly
+    toc: yes
+    toc_float: yes
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+## Society for Mathematical Biology Annual Meeting 
+
+If your research interests combine mathematics and biology, consider attending the Society for Mathematical Biology Annual Meeting next July 11-17, 2017. Travel should be inexpensive, as the venue is just a short drive down the road in Salt Lake City, UT. 
+
+Don't miss this opportunity! 
+
+The SMB annual meeting is held in North America every 2 years (the other years it is held abroad; see the list of [past meetings](smb.org)) and the closest it's ever been to NV was in 2002 when it was hosted at ASU. Information about past meetings can be found at at http://smb.org/meetings/annual.shtml[smb.org]
+
+Deadlines, program, and other information for the 2017 meeting will appear in the coming months [here](http://www.smb2017.org).
+
+## NimBioS workshops
+
 March 1 is the next deadline for submitting requests for new scientific and educational activities at NIMBioS, including [Working Groups](http://r20.rs6.net/tn.jsp?f=001RV57oNxCgpuYpeHO4JuWsIZda1dJXiu5JsaduWMbyyjINhphlcADwzScL5TKKdaOoVRa5jq882URPxDCAWKUc_KxVfxX4bJN_cjrFPopnr6MpNwIBfBLPspvbJB_wqQu1aWds5ZgMBZEieIFhE0jYxYMpCrBTLcxyxAtGVykdW0=&c=cruUh25-MaAIYaLUh5vwqP9ElLMmApAIBM0m3KVIujw-YuccAVp6WQ==&ch=KwxJxFoqyxAQ3AJp8cxoPDJQrS8YM7ViXsqxHhl5lqCJahIdeOYWfQ==) and [Investigative Workshops](http://r20.rs6.net/tn.jsp?f=001RV57oNxCgpuYpeHO4JuWsIZda1dJXiu5JsaduWMbyyjINhphlcADw4J9P9bMCIps0RkPehZLZH435n16APQVjH8mFQOweb--sQtnZN5WJJZbRENcyTf9XyjLfK8hqHDJFTM4WlL2cV-4BzVx25w3Xr0UJvBx__wF2rZev-HA8UM=&c=cruUh25-MaAIYaLUh5vwqP9ElLMmApAIBM0m3KVIujw-YuccAVp6WQ==&ch=KwxJxFoqyxAQ3AJp8cxoPDJQrS8YM7ViXsqxHhl5lqCJahIdeOYWfQ==). For information on what NIMBioS funds and does not fund as well as application requirements, click [here](http://r20.rs6.net/tn.jsp?f=001RV57oNxCgpuYpeHO4JuWsIZda1dJXiu5JsaduWMbyyjINhphlcADw8ONeyzG27s-9mxDFrnL3sBqx__sjgVvjGGMflPC-TeaGAMSEZgWOW7U7q1yp4LHG5FDTx11NIt4IQjn4WnJ9onbhfanlZOb18X6OO04bTQF40ktzWYdvDw=&c=cruUh25-MaAIYaLUh5vwqP9ElLMmApAIBM0m3KVIujw-YuccAVp6WQ==&ch=KwxJxFoqyxAQ3AJp8cxoPDJQrS8YM7ViXsqxHhl5lqCJahIdeOYWfQ==).
+
+

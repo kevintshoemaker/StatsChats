@@ -36,7 +36,11 @@ $Stats Chats$ is an informal weekly gathering to discuss any quantitative questi
  
  
 ## Join the $Stats Chats$ mailing list: 
- The list homepage is at [http://lists.unr.edu/sympa/info/statschats](http://lists.unr.edu/sympa/info/statschats)
+Send an email to sympa@lists.unr.edu and in the subject field enter 'subscribe statschats FirstName LastName'. Leave the message body blank.  
+
+Alternatively, just follow this link, which will take you to the email list management website where you can subscribe via your browser: [https://lists.unr.edu/sympa/subscribe/statschats](https://lists.unr.edu/sympa/subscribe/statschats).   
+
+The list homepage is at [http://lists.unr.edu/sympa/info/statschats](http://lists.unr.edu/sympa/info/statschats).
 
 ![](StatsCartoon1.gif)
 

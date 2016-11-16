@@ -1,0 +1,89 @@
+---
+title: "Topics"
+author: "Stats Chats"
+date: "November 8, 2016"
+output: 
+  html_document: 
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Other future topics?
+
+* Git tutorial?
+
+# November 2016
+
+## Next meeting: 11/22/2016
+Discussion leader: Jessi Brown, Chris Vennum
+We discuss what you can do with mixed models once you have fit them using something like "lmer" from the "lme4" package in R. In partucular, we will discuss how to use R to bootstrap predictions from mixed effects models
+
+## 11/15/2016
+Leader: Chris Vennum
+We continued our discussion of linear mixed models- in particular, we discussed (1) strategies for evaluating the normality of residuals if the random effect terms do most of the explaining, and (2) whether parameter estimation breaks down if some or all predictor variables are perfectly correlated with a "group" variable (all sampling units within a group share the same covariate value). For the latter case, using a simulation (below), Thomas Riecke demonstrated that the REML algorithm in "lmer" was able to estimate fixed effects terms appropriately. 
+
+```{r}
+#########################################################################
+# group number, cluster size
+#########################################################################
+groups <- 50
+cluster <- 5
+
+#########################################################################
+# generate random groupse
+#########################################################################
+random <- seq(1,groups,1)                               # 100 random groups
+data <- data.frame(rep(random, each = cluster))            # build a data.frame with 10 observations per cluster
+
+#########################################################################
+# generate 100 covariate values
+#########################################################################
+x <- rnorm(groups, 0, 2); hist(x)
+data[,2] <- NA
+
+#########################################################################
+# assign covariate values to groups... all the same
+#########################################################################
+for (i in 1:nrow(data)){
+  data[i,2] <- x[data[i,1]]
+}
+
+#########################################################################
+# generate data with noise
+#########################################################################
+alpha <- 5
+beta <- 1
+data[,3] <- alpha + data[,2] * beta + rnorm(groups * cluster, 0, 3) 
+
+par(family = 'serif', mar = c(5.1,5.1,2.1,2.1))
+plot(data[,3] ~ data[,2], ylab = 'Response', xlab = 'Covariate', cex.lab = 2)
+
+#########################################################################
+# assign less ridiculous column names
+#########################################################################
+colnames(data) <- c('group', 'covariate', 'response')
+
+library(lme4)
+summary(lmer(response ~ covariate + (1|group), data = data))
+
+```
+
+
+## 11/8/2016 
+Since no one came with questions, we discussed mixed models. Several 'stats chats' participants over the last year have raised the question of how to determine the 'significance' of random effects, and how to decide whether to keep or remove specific random effects from a (generalized) linear mixed model. We discussed the possibility of running bootstrap tests in R to determine whether more variance is explained by the random effect than would be predicted on the basis of random chance. Paul raised the question of whether you can test for abnormal random effects distributions- e.g., bimodal distributions. We will continue this discussion next week...
+
+## 11/1/2016
+Since no one came with questions, we discussed the quantitative curriculum at UNR for graduate students and undergraduates. We started out by wondering aloud if coding and quantitive analysis could be embedded in the curriculum so that students had more exposure to these tools in many different contexts. Some key points of our discussion:  
+
+* We need to reach out to Tom Parchman in Biology to discuss whether his existing class could serve as a basic introduction to programming for grad students.    
+* Students need more consistent exposure to coding, stats, and mathematics (e.g., calc, linear algebra)
+* Bootcamps can serve a useful purpose: e.g., programming in R and python, Calculus review, linear algebra review, probability review
+* Grad students are in need of more 700-level courses. Several grad students would like to pursue a "crash course" in basic mathematical concepts, potentially following Otto and Day, and potentially to be offered in Fall 2017. 
+
+
+

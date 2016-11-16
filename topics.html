@@ -11,9 +11,8 @@
 
 <meta name="author" content="Stats Chats" />
 
-<meta name="date" content="2016-10-10" />
 
-<title>News</title>
+<title>Topics</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -300,23 +299,113 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">News</h1>
+<h1 class="title toc-ignore">Topics</h1>
 <h4 class="author"><em>Stats Chats</em></h4>
-<h4 class="date"><em>October 10, 2016</em></h4>
+<h4 class="date"><em>November 8, 2016</em></h4>
 
 </div>
 
 
-<div id="society-for-mathematical-biology-annual-meeting" class="section level2">
-<h2>Society for Mathematical Biology Annual Meeting</h2>
-<p>If your research interests combine mathematics and biology, consider attending the Society for Mathematical Biology Annual Meeting next July 11-17, 2017. Travel should be inexpensive, as the venue is just a short drive down the road in Salt Lake City, UT.</p>
-<p>Don’t miss this opportunity!</p>
-<p>The SMB annual meeting is held in North America every 2 years (the other years it is held abroad; see the list of <a href="smb.org">past meetings</a>) and the closest it’s ever been to NV was in 2002 when it was hosted at ASU. Information about past meetings can be found at at <a href="http://smb.org/meetings/annual.shtml%5Bsmb.org%5D" class="uri">http://smb.org/meetings/annual.shtml[smb.org]</a></p>
-<p>Deadlines, program, and other information for the 2017 meeting will appear in the coming months <a href="http://www.smb2017.org">here</a>.</p>
+<div id="other-future-topics" class="section level2">
+<h2>Other future topics?</h2>
+<ul>
+<li>Git tutorial?</li>
+</ul>
 </div>
-<div id="nimbios-workshops" class="section level2">
-<h2>NimBioS workshops</h2>
-<p>March 1 is the next deadline for submitting requests for new scientific and educational activities at NIMBioS, including <a href="http://r20.rs6.net/tn.jsp?f=001RV57oNxCgpuYpeHO4JuWsIZda1dJXiu5JsaduWMbyyjINhphlcADwzScL5TKKdaOoVRa5jq882URPxDCAWKUc_KxVfxX4bJN_cjrFPopnr6MpNwIBfBLPspvbJB_wqQu1aWds5ZgMBZEieIFhE0jYxYMpCrBTLcxyxAtGVykdW0=&amp;c=cruUh25-MaAIYaLUh5vwqP9ElLMmApAIBM0m3KVIujw-YuccAVp6WQ==&amp;ch=KwxJxFoqyxAQ3AJp8cxoPDJQrS8YM7ViXsqxHhl5lqCJahIdeOYWfQ==">Working Groups</a> and <a href="http://r20.rs6.net/tn.jsp?f=001RV57oNxCgpuYpeHO4JuWsIZda1dJXiu5JsaduWMbyyjINhphlcADw4J9P9bMCIps0RkPehZLZH435n16APQVjH8mFQOweb--sQtnZN5WJJZbRENcyTf9XyjLfK8hqHDJFTM4WlL2cV-4BzVx25w3Xr0UJvBx__wF2rZev-HA8UM=&amp;c=cruUh25-MaAIYaLUh5vwqP9ElLMmApAIBM0m3KVIujw-YuccAVp6WQ==&amp;ch=KwxJxFoqyxAQ3AJp8cxoPDJQrS8YM7ViXsqxHhl5lqCJahIdeOYWfQ==">Investigative Workshops</a>. For information on what NIMBioS funds and does not fund as well as application requirements, click <a href="http://r20.rs6.net/tn.jsp?f=001RV57oNxCgpuYpeHO4JuWsIZda1dJXiu5JsaduWMbyyjINhphlcADw8ONeyzG27s-9mxDFrnL3sBqx__sjgVvjGGMflPC-TeaGAMSEZgWOW7U7q1yp4LHG5FDTx11NIt4IQjn4WnJ9onbhfanlZOb18X6OO04bTQF40ktzWYdvDw=&amp;c=cruUh25-MaAIYaLUh5vwqP9ElLMmApAIBM0m3KVIujw-YuccAVp6WQ==&amp;ch=KwxJxFoqyxAQ3AJp8cxoPDJQrS8YM7ViXsqxHhl5lqCJahIdeOYWfQ==">here</a>.</p>
+<div id="november-2016" class="section level1">
+<h1>November 2016</h1>
+<div id="next-meeting-11222016" class="section level2">
+<h2>Next meeting: 11/22/2016</h2>
+<p>Discussion leader: Jessi Brown, Chris Vennum We discuss what you can do with mixed models once you have fit them using something like “lmer” from the “lme4” package in R. In partucular, we will discuss how to use R to bootstrap predictions from mixed effects models</p>
+</div>
+<div id="section" class="section level2">
+<h2>11/15/2016</h2>
+<p>Leader: Chris Vennum We continued our discussion of linear mixed models- in particular, we discussed (1) strategies for evaluating the normality of residuals if the random effect terms do most of the explaining, and (2) whether parameter estimation breaks down if some or all predictor variables are perfectly correlated with a “group” variable (all sampling units within a group share the same covariate value). For the latter case, using a simulation (below), Thomas Riecke demonstrated that the REML algorithm in “lmer” was able to estimate fixed effects terms appropriately.</p>
+<pre class="r"><code>#########################################################################
+# group number, cluster size
+#########################################################################
+groups &lt;- 50
+cluster &lt;- 5
+
+#########################################################################
+# generate random groupse
+#########################################################################
+random &lt;- seq(1,groups,1)                               # 100 random groups
+data &lt;- data.frame(rep(random, each = cluster))            # build a data.frame with 10 observations per cluster
+
+#########################################################################
+# generate 100 covariate values
+#########################################################################
+x &lt;- rnorm(groups, 0, 2); hist(x)</code></pre>
+<p><img src="topics_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>data[,2] &lt;- NA
+
+#########################################################################
+# assign covariate values to groups... all the same
+#########################################################################
+for (i in 1:nrow(data)){
+  data[i,2] &lt;- x[data[i,1]]
+}
+
+#########################################################################
+# generate data with noise
+#########################################################################
+alpha &lt;- 5
+beta &lt;- 1
+data[,3] &lt;- alpha + data[,2] * beta + rnorm(groups * cluster, 0, 3) 
+
+par(family = &#39;serif&#39;, mar = c(5.1,5.1,2.1,2.1))
+plot(data[,3] ~ data[,2], ylab = &#39;Response&#39;, xlab = &#39;Covariate&#39;, cex.lab = 2)
+
+#########################################################################
+# assign less ridiculous column names
+#########################################################################
+colnames(data) &lt;- c(&#39;group&#39;, &#39;covariate&#39;, &#39;response&#39;)
+
+library(lme4)</code></pre>
+<pre><code>## Loading required package: Matrix</code></pre>
+<p><img src="topics_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<pre class="r"><code>summary(lmer(response ~ covariate + (1|group), data = data))</code></pre>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: response ~ covariate + (1 | group)
+##    Data: data
+## 
+## REML criterion at convergence: 1246.3
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -4.2191 -0.7298  0.0866  0.6803  2.6108 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  group    (Intercept) 0.000    0.000   
+##  Residual             8.481    2.912   
+## Number of obs: 250, groups:  group, 50
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)  5.24519    0.18645   28.13
+## covariate    1.00284    0.09642   10.40
+## 
+## Correlation of Fixed Effects:
+##           (Intr)
+## covariate -0.155</code></pre>
+</div>
+<div id="section-1" class="section level2">
+<h2>11/8/2016</h2>
+<p>Since no one came with questions, we discussed mixed models. Several ‘stats chats’ participants over the last year have raised the question of how to determine the ‘significance’ of random effects, and how to decide whether to keep or remove specific random effects from a (generalized) linear mixed model. We discussed the possibility of running bootstrap tests in R to determine whether more variance is explained by the random effect than would be predicted on the basis of random chance. Paul raised the question of whether you can test for abnormal random effects distributions- e.g., bimodal distributions. We will continue this discussion next week…</p>
+</div>
+<div id="section-2" class="section level2">
+<h2>11/1/2016</h2>
+<p>Since no one came with questions, we discussed the quantitative curriculum at UNR for graduate students and undergraduates. We started out by wondering aloud if coding and quantitive analysis could be embedded in the curriculum so that students had more exposure to these tools in many different contexts. Some key points of our discussion:</p>
+<ul>
+<li>We need to reach out to Tom Parchman in Biology to discuss whether his existing class could serve as a basic introduction to programming for grad students.<br />
+</li>
+<li>Students need more consistent exposure to coding, stats, and mathematics (e.g., calc, linear algebra)</li>
+<li>Bootcamps can serve a useful purpose: e.g., programming in R and python, Calculus review, linear algebra review, probability review</li>
+<li>Grad students are in need of more 700-level courses. Several grad students would like to pursue a “crash course” in basic mathematical concepts, potentially following Otto and Day, and potentially to be offered in Fall 2017.</li>
+</ul>
+</div>
 </div>
 
 

@@ -309,16 +309,31 @@ div.tocify {
 <div id="other-future-topics" class="section level2">
 <h2>Other future topics?</h2>
 <ul>
-<li>Git tutorial?</li>
+<li>GIT tutorial?</li>
+<li>Use of the UNR grid?</li>
 </ul>
+</div>
+<div id="december-2016" class="section level1">
+<h1>December 2016</h1>
+<div id="section" class="section level2">
+<h2>12/6/2016</h2>
+<p><strong>Discussion topic:</strong> SECR in JAGS for woodrats <strong>Discussion leader:</strong> Kevin Shoemaker and Elizabeth Hunter We will discuss a model for estimating survival and movement propensity for two species of woodrats within a hybrid zone. We are using a modified CJS model in a spatially-explicit capture-recapture (secr) framework.</p>
+</div>
 </div>
 <div id="november-2016" class="section level1">
 <h1>November 2016</h1>
-<div id="next-meeting-11222016" class="section level2">
-<h2>Next meeting: 11/22/2016</h2>
-<p>Discussion leader: Jessi Brown, Chris Vennum We discuss what you can do with mixed models once you have fit them using something like “lmer” from the “lme4” package in R. In partucular, we will discuss how to use R to bootstrap predictions from mixed effects models</p>
+<div id="section-1" class="section level2">
+<h2>11/29/2016</h2>
+<p>Discussion topic: Mixed effects modeling. Although Pinhiero and Bates suggest that LRT is appropriate for mixed effects models, we are still unsure how to compute the degrees of freedom for the Chi-squared distribution that describes the null hypothesis. We are also wondering exactly why it is not recommended to use information criteria to compare models with different random effects structures. Paul mentioned the possibility of generating null distributions for such questions and seeing how well they match with the Chi-squared distribution recommended by pinhiero and bates.. Phillip mentioned that Ken Burnham “solved” this issue by using the trace of the “G-matrix” to approximate the number of free parameters in the model.</p>
+<p>Here are some links with good guidance!!</p>
+<p><a href="http://stats.stackexchange.com/questions/111905/what-is-the-upside-of-treating-a-factor-as-random-in-a-mixed-model">Link1</a><br />
+<a href="http://stats.stackexchange.com/questions/117497/comparing-between-random-effects-structures-in-a-linear-mixed-effects-model">Link2</a></p>
 </div>
-<div id="section" class="section level2">
+<div id="section-2" class="section level2">
+<h2>11/22/2016</h2>
+<p>Discussion leader: Jessi Brown, Chris Vennum We discussed what you can do with mixed models once you have fitted them using something like “lmer” from the “lme4” package in R. In partucular, we discussed how to use R to bootstrap predictions from mixed effects models and whether confidence intervals from lmer compared favorably with those from a Bayesian modeling approach in JAGS.</p>
+</div>
+<div id="section-3" class="section level2">
 <h2>11/15/2016</h2>
 <p>Leader: Chris Vennum We continued our discussion of linear mixed models- in particular, we discussed (1) strategies for evaluating the normality of residuals if the random effect terms do most of the explaining, and (2) whether parameter estimation breaks down if some or all predictor variables are perfectly correlated with a “group” variable (all sampling units within a group share the same covariate value). For the latter case, using a simulation (below), Thomas Riecke demonstrated that the REML algorithm in “lmer” was able to estimate fixed effects terms appropriately.</p>
 <pre class="r"><code>#########################################################################
@@ -328,7 +343,7 @@ groups &lt;- 50
 cluster &lt;- 5
 
 #########################################################################
-# generate random groupse
+# generate random groups
 #########################################################################
 random &lt;- seq(1,groups,1)                               # 100 random groups
 data &lt;- data.frame(rep(random, each = cluster))            # build a data.frame with 10 observations per cluster
@@ -370,32 +385,32 @@ library(lme4)</code></pre>
 ## Formula: response ~ covariate + (1 | group)
 ##    Data: data
 ## 
-## REML criterion at convergence: 1246.3
+## REML criterion at convergence: 1260.6
 ## 
 ## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -4.2191 -0.7298  0.0866  0.6803  2.6108 
+##      Min       1Q   Median       3Q      Max 
+## -3.09683 -0.65059  0.00139  0.67361  2.68601 
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Std.Dev.
-##  group    (Intercept) 0.000    0.000   
-##  Residual             8.481    2.912   
+##  group    (Intercept) 0.07341  0.2709  
+##  Residual             8.91954  2.9866  
 ## Number of obs: 250, groups:  group, 50
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept)  5.24519    0.18645   28.13
-## covariate    1.00284    0.09642   10.40
+## (Intercept)   4.8986     0.1927  25.416
+## covariate     1.0953     0.1112   9.849
 ## 
 ## Correlation of Fixed Effects:
 ##           (Intr)
-## covariate -0.155</code></pre>
+## covariate 0.000</code></pre>
 </div>
-<div id="section-1" class="section level2">
+<div id="section-4" class="section level2">
 <h2>11/8/2016</h2>
 <p>Since no one came with questions, we discussed mixed models. Several ‘stats chats’ participants over the last year have raised the question of how to determine the ‘significance’ of random effects, and how to decide whether to keep or remove specific random effects from a (generalized) linear mixed model. We discussed the possibility of running bootstrap tests in R to determine whether more variance is explained by the random effect than would be predicted on the basis of random chance. Paul raised the question of whether you can test for abnormal random effects distributions- e.g., bimodal distributions. We will continue this discussion next week…</p>
 </div>
-<div id="section-2" class="section level2">
+<div id="section-5" class="section level2">
 <h2>11/1/2016</h2>
 <p>Since no one came with questions, we discussed the quantitative curriculum at UNR for graduate students and undergraduates. We started out by wondering aloud if coding and quantitive analysis could be embedded in the curriculum so that students had more exposure to these tools in many different contexts. Some key points of our discussion:</p>
 <ul>

@@ -18,6 +18,11 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 * GIT tutorial?
 * Use of the UNR grid?
 
+# February 2017
+
+## 2/14/2017
+First meeting of the semester (after a fashionable delay).
+
 # December 2016
 
 ## 12/6/2016

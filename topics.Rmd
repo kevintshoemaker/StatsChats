@@ -17,11 +17,16 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 
 * GIT tutorial?
 * Use of the UNR grid?
+* Ordination?
+* SQL databases?
 
 # February 2017
 
+## 2/21/2017
+Jessi Brown led a discussion/tutorial about parallelizing analyses in R using the 'parallel' package. The code will be made available on this website soon. Next week we will continue this discussion and discuss how to port this code for a Windows OS. 
+
 ## 2/14/2017
-First meeting of the semester (after a fashionable delay).
+First meeting of the semester (after a fashionable delay). Introduction and planning for the spring semester. Sounds like there is interest in workshop-type sessions focused on particular topics of interest. Among the topics discussed were parallel computing in R, SQL databases, use of "the grid", ordination, and GitHub. For next week: parallel computing in R, led by Stats Chats co-leader Jessi Brown   
 
 # December 2016
 

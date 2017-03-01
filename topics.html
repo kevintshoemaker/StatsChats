@@ -23,12 +23,11 @@
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="site_libs/highlight/default.css"
-      type="text/css" />
-<script src="site_libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -155,7 +154,6 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -181,7 +179,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
@@ -240,8 +238,9 @@ div.tocify {
 }
 
 .tocify-subheader .tocify-item {
-  font-size: 0.9em;
-  padding-left: 5px;
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -287,6 +286,9 @@ div.tocify {
 <li>
   <a href="Links.html">Links</a>
 </li>
+<li>
+  <a href="https://docs.google.com/spreadsheets/d/1qdmvlnrLDH8bIeHXflAGDeM9MIV74G6Sm1zn2mCtqgM/edit#gid=0">UNR quant. course list</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -311,29 +313,143 @@ div.tocify {
 <ul>
 <li>GIT tutorial?</li>
 <li>Use of the UNR grid?</li>
+<li>Ordination?</li>
+<li>SQL databases?</li>
+<li>Bayesian priors?</li>
 </ul>
+</div>
+<div id="february-2017" class="section level1">
+<h1>February 2017</h1>
+<div id="section" class="section level2">
+<h2>2/28/2017</h2>
+<p>Mostly we discussed putting together a Google spreadsheet as a one-stop shop for students to find quantitative course offerings on campus (click <a href="https://docs.google.com/spreadsheets/d/1qdmvlnrLDH8bIeHXflAGDeM9MIV74G6Sm1zn2mCtqgM/edit?usp=sharing">here</a>). Next week we will discuss Justin’s red-tailed hawk data set.</p>
+</div>
+<div id="section-1" class="section level2">
+<h2>2/21/2017</h2>
+<p>Jessi Brown led a discussion/tutorial about parallelizing analyses in R using the ‘parallel’ package. The code will be made available on this website soon. Next week we will continue this discussion and discuss how to port this code for a Windows OS.</p>
+</div>
+<div id="section-2" class="section level2">
+<h2>2/14/2017</h2>
+<p>First meeting of the semester (after a fashionable delay). Introduction and planning for the spring semester. Sounds like there is interest in workshop-type sessions focused on particular topics of interest. Among the topics discussed were parallel computing in R, SQL databases, use of “the grid”, ordination, and GitHub. For next week: parallel computing in R, led by Stats Chats co-leader Jessi Brown. We also discussed the possibility of hosting a list of quantitative course offerings at UNR, along with a brief description of the target audience for each class.</p>
+</div>
 </div>
 <div id="december-2016" class="section level1">
 <h1>December 2016</h1>
-<div id="section" class="section level2">
+<div id="section-3" class="section level2">
 <h2>12/6/2016</h2>
 <p><strong>Discussion topic:</strong> SECR in JAGS for woodrats <strong>Discussion leader:</strong> Kevin Shoemaker and Elizabeth Hunter We will discuss a model for estimating survival and movement propensity for two species of woodrats within a hybrid zone. We are using a modified CJS model in a spatially-explicit capture-recapture (secr) framework.</p>
+<pre class="r"><code>model{
+    ############
+    #PRIORS
+    #Survival
+    phi0 ~ dunif(0, 1)      #mean survival rate
+    logit.phi &lt;- log(phi0/(1-phi0)) #survival on logit scale
+
+    juvEff ~ dunif(-4,4)            #beta term for juvenile effect on survival
+    maleEff ~ dunif(-4,4)           #beta term for sex effect on survival
+    FuEff ~ dunif(-4,4)         #beta terms for effect of genotype on survival
+    MaEff ~ dunif(-4,4)
+    bcFuEff ~ dunif(-4,4)
+    bcMaEff ~ dunif(-4,4)
+
+    male.prob ~ dunif(0,1)   # probability of being male (account for unknown sex)
+    Fu.prob ~ dunif(0,1)     # probability of being a given genotype (account for unknown genotype)
+    Ma.prob ~ dunif(0,1)
+    bcFu.prob ~ dunif(0,1)
+    bcMa.prob ~ dunif(0,1)
+
+    #Some individuals are not sexed or genotyped, so need priors for those missing data
+    for(i in 1:n.ind){
+        isMale[i] ~ dbern(male.prob)
+        isFu[i] ~ dbern(Fu.prob)
+        isMa[i] ~ dbern(Ma.prob)
+        isbcFu[i] ~ dbern(bcFu.prob)
+        isbcMa[i] ~ dbern(bcMa.prob)
+    }
+
+    #Detection    
+    lambda0.base ~ dunif(0.001, 0.5)    # mean times resident indiv captured at its given house per independent survey event
+    #logit.lambda0.base &lt;- log(lambda0.base/(1-lambda0.base))       
+    sigma ~ dunif(0, 500)   # drop off in detection with distance   
+    sigma2 &lt;- pow(sigma,2)
+
+    #Movement among houses
+    p.move.male ~ dunif(0, 0.3)
+    p.move.female ~ dunif(0, 0.3)
+
+    ###########
+    #HOUSE MODEL
+
+    for (i in 1:n.ind){
+            myHouse[i,firsts[i]] &lt;- firstHouse[i]  #~ dcat(firstHouseProb[i,])
+            p.move[i] &lt;- isMale[i] * p.move.male + (1-isMale[i])*p.move.female
+        for(t in (firsts[i]+1):n.periods){
+            transitionHouse[i,t] &lt;- pow(p.move[i], period[t-1])  #Probability of transitioning to a new house
+            newHouseCand_unif[i,t] ~ dunif(0,n.houses)    # this could be turned into a distance kernel using the ones trick?
+            newHouseCand_cat[i,t] &lt;- trunc(newHouseCand_unif[i,t]+1) #~ dcat(houseprob[])  #
+            move[i,t] ~ dbern(transitionHouse[i,t])     #latent variable: did it move to a new activity center?
+            myHouse[i,t] &lt;-  move[i,t]*newHouseCand_cat[i,t] + (1-move[i,t])*myHouse[i,t-1]     # which house does it live in now???  newHouse[i,t]
+        }
+    }
+
+    ############
+    #OBSERVATION MODEL
+
+    for(i in 1:n.ind){
+        for(t in (firsts[i]+1):n.periods){
+            #Loop only through traps near to myHouse (&lt;200m away) that are open within a period 
+            for(r in 1:nearopen.num[firstHouse[i],t]){                
+                    lambda[i,t,nearopen[t,r,firstHouse[i]]] &lt;- lambda0.base * exp(-1*(D2[myHouse[i,t],nearopen[t,r,firstHouse[i]]])/(2*sigma2 )) * alive[i,t]    #total exposure as function of distance
+                    ind.trap.per[i,nearopen[t,r,firstHouse[i]],t] ~ dbin(lambda[i,t,nearopen[t,r,firstHouse[i]]],eff.per[nearopen[t,r,firstHouse[i]],t])
+            }
+        }
+    }
+
+    ############
+    #SURVIVAL MODEL
+
+    for(i in 1:n.ind){
+            for(t in 1:(firsts[i]-1)){
+            alive[i,t] ~ dbern(1)
+            }
+    }
+
+    for(i in 1:n.ind){
+        for(t in 1:(n.periods-1)){
+            mu.phi[i,t] &lt;- logit.phi + maleEff*isMale[i] + juvEff*isJuv[i,t] + FuEff*isFu[i] + MaEff*isMa[i] + bcFuEff*isbcFu[i] + bcMaEff*isbcMa[i]
+                #EAH: changed mu.phi to be period specific instead of just [i]
+            logit(phi[i,t]) &lt;- mu.phi[i,t]   # expected survival rate for this individual at this time on the basis of covariates
+        }
+    }
+
+
+    #Latent variable: living or dead
+    for(i in 1:n.ind){
+        alive[i,firsts[i]] ~ dbern(1)       #At first capture, individual is alive
+        for(t in (firsts[i]+1):n.periods){
+            transition[i,t] &lt;- pow(phi[i,t-1], period[t-1])  #Probability of transitioning to this period (based on period duration)
+            mualive[i,t] &lt;- alive[i,(t-1)] * transition[i,t]    #probability of each ind being alive after transitioning
+            alive[i,t] ~ dbern(mualive[i,t])        #latent variable: is it still alive?
+        }
+    }
+
+} #END MODEL</code></pre>
 </div>
 </div>
 <div id="november-2016" class="section level1">
 <h1>November 2016</h1>
-<div id="section-1" class="section level2">
+<div id="section-4" class="section level2">
 <h2>11/29/2016</h2>
 <p>Discussion topic: Mixed effects modeling. Although Pinhiero and Bates suggest that LRT is appropriate for mixed effects models, we are still unsure how to compute the degrees of freedom for the Chi-squared distribution that describes the null hypothesis. We are also wondering exactly why it is not recommended to use information criteria to compare models with different random effects structures. Paul mentioned the possibility of generating null distributions for such questions and seeing how well they match with the Chi-squared distribution recommended by pinhiero and bates.. Phillip mentioned that Ken Burnham “solved” this issue by using the trace of the “G-matrix” to approximate the number of free parameters in the model.</p>
 <p>Here are some links with good guidance!!</p>
 <p><a href="http://stats.stackexchange.com/questions/111905/what-is-the-upside-of-treating-a-factor-as-random-in-a-mixed-model">Link1</a><br />
 <a href="http://stats.stackexchange.com/questions/117497/comparing-between-random-effects-structures-in-a-linear-mixed-effects-model">Link2</a></p>
 </div>
-<div id="section-2" class="section level2">
+<div id="section-5" class="section level2">
 <h2>11/22/2016</h2>
 <p>Discussion leader: Jessi Brown, Chris Vennum We discussed what you can do with mixed models once you have fitted them using something like “lmer” from the “lme4” package in R. In partucular, we discussed how to use R to bootstrap predictions from mixed effects models and whether confidence intervals from lmer compared favorably with those from a Bayesian modeling approach in JAGS.</p>
 </div>
-<div id="section-3" class="section level2">
+<div id="section-6" class="section level2">
 <h2>11/15/2016</h2>
 <p>Leader: Chris Vennum We continued our discussion of linear mixed models- in particular, we discussed (1) strategies for evaluating the normality of residuals if the random effect terms do most of the explaining, and (2) whether parameter estimation breaks down if some or all predictor variables are perfectly correlated with a “group” variable (all sampling units within a group share the same covariate value). For the latter case, using a simulation (below), Thomas Riecke demonstrated that the REML algorithm in “lmer” was able to estimate fixed effects terms appropriately.</p>
 <pre class="r"><code>#########################################################################
@@ -352,7 +468,7 @@ data &lt;- data.frame(rep(random, each = cluster))            # build a data.fra
 # generate 100 covariate values
 #########################################################################
 x &lt;- rnorm(groups, 0, 2); hist(x)</code></pre>
-<p><img src="topics_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><img src="topics_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <pre class="r"><code>data[,2] &lt;- NA
 
 #########################################################################
@@ -370,47 +486,45 @@ beta &lt;- 1
 data[,3] &lt;- alpha + data[,2] * beta + rnorm(groups * cluster, 0, 3) 
 
 par(family = &#39;serif&#39;, mar = c(5.1,5.1,2.1,2.1))
-plot(data[,3] ~ data[,2], ylab = &#39;Response&#39;, xlab = &#39;Covariate&#39;, cex.lab = 2)
-
-#########################################################################
+plot(data[,3] ~ data[,2], ylab = &#39;Response&#39;, xlab = &#39;Covariate&#39;, cex.lab = 2)</code></pre>
+<p><img src="topics_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<pre class="r"><code>#########################################################################
 # assign less ridiculous column names
 #########################################################################
 colnames(data) &lt;- c(&#39;group&#39;, &#39;covariate&#39;, &#39;response&#39;)
 
-library(lme4)</code></pre>
-<pre><code>## Loading required package: Matrix</code></pre>
-<p><img src="topics_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
-<pre class="r"><code>summary(lmer(response ~ covariate + (1|group), data = data))</code></pre>
+library(lme4)
+summary(lmer(response ~ covariate + (1|group), data = data))</code></pre>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: response ~ covariate + (1 | group)
 ##    Data: data
 ## 
-## REML criterion at convergence: 1260.6
+## REML criterion at convergence: 1294.7
 ## 
 ## Scaled residuals: 
 ##      Min       1Q   Median       3Q      Max 
-## -3.09683 -0.65059  0.00139  0.67361  2.68601 
+## -3.05573 -0.64367  0.01365  0.63005  2.89404 
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Std.Dev.
-##  group    (Intercept) 0.07341  0.2709  
-##  Residual             8.91954  2.9866  
+##  group    (Intercept)  0.00    0.000   
+##  Residual             10.31    3.211   
 ## Number of obs: 250, groups:  group, 50
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept)   4.8986     0.1927  25.416
-## covariate     1.0953     0.1112   9.849
+## (Intercept)   4.8051     0.2031  23.655
+## covariate     1.0443     0.1077   9.699
 ## 
 ## Correlation of Fixed Effects:
 ##           (Intr)
-## covariate 0.000</code></pre>
+## covariate 0.025</code></pre>
 </div>
-<div id="section-4" class="section level2">
+<div id="section-7" class="section level2">
 <h2>11/8/2016</h2>
 <p>Since no one came with questions, we discussed mixed models. Several ‘stats chats’ participants over the last year have raised the question of how to determine the ‘significance’ of random effects, and how to decide whether to keep or remove specific random effects from a (generalized) linear mixed model. We discussed the possibility of running bootstrap tests in R to determine whether more variance is explained by the random effect than would be predicted on the basis of random chance. Paul raised the question of whether you can test for abnormal random effects distributions- e.g., bimodal distributions. We will continue this discussion next week…</p>
 </div>
-<div id="section-5" class="section level2">
+<div id="section-8" class="section level2">
 <h2>11/1/2016</h2>
 <p>Since no one came with questions, we discussed the quantitative curriculum at UNR for graduate students and undergraduates. We started out by wondering aloud if coding and quantitive analysis could be embedded in the curriculum so that students had more exposure to these tools in many different contexts. Some key points of our discussion:</p>
 <ul>
@@ -433,8 +547,11 @@ library(lme4)</code></pre>
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 

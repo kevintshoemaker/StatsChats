@@ -37,6 +37,9 @@ Please let Paul or Kevin know if there are other links that you think should be 
  [YAML: YAML Ain't Markup Language!](http://yaml.org/)  
  [a nice simple Markdown syntax guide](https://confluence.atlassian.com/bitbucketserver/markdown-syntax-guide-776639995.html)
 
+## Basic stats   
+ [Visual intro to stats](http://students.brown.edu/seeing-theory/)      
+
 ## Bayesian Statistics
  [MCMC for Dummies...](http://twiecki.github.io/blog/2015/11/10/mcmc-sampling/) (basis of MCMC lecture...)
  [BUGS online manual](http://users.aims.ac.za/~mackay/BUGS/Manual05/Manual05/manual05.sec-contents.html)

@@ -19,14 +19,18 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 * Use of the UNR grid?
 * Ordination?
 * SQL databases?
+* Bayesian priors?
 
 # February 2017
+
+## 2/28/2017
+Mostly we discussed putting together a Google spreadsheet as a one-stop shop for students to find quantitative course offerings on campus (click [here](https://docs.google.com/spreadsheets/d/1qdmvlnrLDH8bIeHXflAGDeM9MIV74G6Sm1zn2mCtqgM/edit?usp=sharing)). Next week we will discuss Justin's red-tailed hawk data set.  
 
 ## 2/21/2017
 Jessi Brown led a discussion/tutorial about parallelizing analyses in R using the 'parallel' package. The code will be made available on this website soon. Next week we will continue this discussion and discuss how to port this code for a Windows OS. 
 
 ## 2/14/2017
-First meeting of the semester (after a fashionable delay). Introduction and planning for the spring semester. Sounds like there is interest in workshop-type sessions focused on particular topics of interest. Among the topics discussed were parallel computing in R, SQL databases, use of "the grid", ordination, and GitHub. For next week: parallel computing in R, led by Stats Chats co-leader Jessi Brown   
+First meeting of the semester (after a fashionable delay). Introduction and planning for the spring semester. Sounds like there is interest in workshop-type sessions focused on particular topics of interest. Among the topics discussed were parallel computing in R, SQL databases, use of "the grid", ordination, and GitHub. For next week: parallel computing in R, led by Stats Chats co-leader Jessi Brown. We also discussed the possibility of hosting a list of quantitative course offerings at UNR, along with a brief description of the target audience for each class.  
 
 # December 2016
 
@@ -35,7 +39,7 @@ First meeting of the semester (after a fashionable delay). Introduction and plan
 **Discussion leader:** Kevin Shoemaker and Elizabeth Hunter
 We will discuss a model for estimating survival and movement propensity for two species of woodrats within a hybrid zone. We are using a modified CJS model in a spatially-explicit capture-recapture (secr) framework.
 
-```{r}
+```{r eval=FALSE}
 model{
 	############
 	#PRIORS

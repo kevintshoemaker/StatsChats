@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "name: \"Stats_Chats\"\noutput_dir: \".\"\nnavbar:\n  title: \"Math/Bio Stats Chats\"\n  left:\n    - text: \"Home\"\n      href: index.html\n    - text: \"Topics\"\n      href: topics.html\n    - text: \"News\"\n      href: news.html\n    - text: \"Links\"\n      href: Links.html\n    - text: \"UNR quant. course list\"\n      href: https://docs.google.com/spreadsheets/d/1qdmvlnrLDH8bIeHXflAGDeM9MIV74G6Sm1zn2mCtqgM/edit#gid=0",
+    "created" : 1472776253962.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "242808821",
+    "id" : "C225217D",
+    "lastKnownWriteTime" : 1488397488,
+    "last_content_update" : 1488397488676,
+    "path" : "E:/GIT/Stats Chats/_site.yml",
+    "project_path" : "_site.yml",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "yaml"
+}

@@ -316,8 +316,8 @@ div.tocify {
 <p>Today we will go through the very basic elements of GIT.</p>
 <p><strong>Q</strong> Why do we want version control?</p>
 <p><strong>Q</strong> What is GIT?</p>
-<p><strong>GIT</strong> <em>n</em>. An unpleasant or contemptible person.</p>
-<p><strong>GIT</strong> <em>n</em>. A widely used distributed version control system.</p>
+<p><strong><em>GIT</em></strong> <em>n</em>. An unpleasant or contemptible person.</p>
+<p><strong><em>GIT</em></strong> <em>n</em>. A widely used distributed version control system.</p>
 <p><strong>Q</strong> What is the difference between GIT and github?</p>
 <div id="overview-of-git" class="section level3">
 <h3>Overview of GIT</h3>
@@ -331,23 +331,25 @@ div.tocify {
 </div>
 <p>Let’s walk through the basics of GIT</p>
 <p>NOTE: github offers a “desktop” software which acts as a GUI for the basic GIT operations. But if you want to use GIT you should have a basic knowledge of the GIT command line. So let’s start there!</p>
-<div id="online-git-tutorial" class="section level4">
-<h4>Online GIT tutorial</h4>
-<p>Click on <a href="https://try.github.io">this link</a> to access a basic tutorial on the GIT command line:</p>
 </div>
-<div id="get-git-on-your-computer" class="section level4">
-<h4>get GIT on your computer</h4>
+<div id="online-git-tutorial" class="section level3">
+<h3>Online GIT tutorial</h3>
+<p>Click on <a href="https://try.github.io">this link</a> to access a basic tutorial on the GIT command line.</p>
+<p>Much more information can be found <a href="https://git-scm.com/">here</a></p>
+</div>
+<div id="step-1-get-git" class="section level3">
+<h3>Step 1: Get GIT!!</h3>
 <p>The easiest way to do this is to download the <a href="https://desktop.github.com/">github desktop software</a></p>
 <p>This should download the GIT desktop software AND the GIT bash emulator for windows (if you want to use the command line!).</p>
 <p>NOTE: you can set the directory location for ‘git.exe’ in your environment variables, and then you can access GIT from any command shell!</p>
 </div>
-<div id="get-a-github-account" class="section level4">
-<h4>get a github account</h4>
+<div id="step-1-get-github" class="section level3">
+<h3>Step 1: Get github!</h3>
 <p>If you don’t already have a github account, go to <a href="github.com" class="uri">github.com</a></p>
 </div>
-<div id="git-tutorial-2-this-time-its-for-real" class="section level4">
-<h4>GIT tutorial #2: this time it’s for real!</h4>
-<p>The easiest way to create a new repository is through github desktop. So that’s what we will do first.</p>
+<div id="git-tutorial-2-this-time-its-for-real" class="section level3">
+<h3>GIT tutorial #2: this time it’s for real!</h3>
+<p>The easiest way to create a new repository is through the github desktop software. So that’s what we will do first.</p>
 <ol style="list-style-type: decimal">
 <li>Go to <a href="github.com">github</a> and log in.</li>
 <li>Open github desktop and sign in. You only have to do this once- next time you open github desktop it will remember you!</li>
@@ -358,7 +360,9 @@ div.tocify {
 <li><p>Go to github desktop and click on the ‘plus’ sign in the upper left corner. Go to the ‘add’ tab and browse to the new folder you created. This tells github desktop that you want to create a new repository in this directory.</p></li>
 <li><p>Navigate to the new repository in the left hand menu on github desktop. Click on it. Then click on the ‘Publish’ button (top right corner of the window). This will create a new cloud-based repository on github.com that will store all the content of your new repository. Go to github.com to make sure your new repository is there.</p></li>
 </ol>
-<p>NOTE: you could have created the repository online and then ‘cloned’ it to create a local repository on your computer.</p>
+<p>NOTE: you could have created the repository online and then ‘cloned’ it to create a local repository on your computer. To do this on the command line: open the git shell, navigate to your local repository directory, and use the following command (e.g.):</p>
+<pre><code>git clone &#39;https://github.com/kevintshoemaker/Tutorial.git&#39;</code></pre>
+<p>Aside from creating a directory through github desktop, this is the easiest way to set up a local git repo!</p>
 <ol start="6" style="list-style-type: decimal">
 <li>Add a new text file to the repository. Call it ‘README.md’. This is a standard markdown-format textfile that github will use to describe the repository to visitors. Open the textfile in a text editor. You can write anything you want in this file, using pandoc markdown format. For example:</li>
 </ol>
@@ -374,11 +378,39 @@ For more information, go to [the statschats website](kevintshoemaker.github.io/s
 <li><p>Now that you have a committed change, it’s time to push that change up to the github repository. Click the “sync” button at the top. Now you have committed and pushed your changes!</p></li>
 </ol>
 </div>
-</div>
 <div id="addcommitpush-a-file-to-the-repository-using-command-line" class="section level3">
 <h3>Add/commit/push a file to the repository using command line!</h3>
 <ol start="10" style="list-style-type: decimal">
-<li>Let’s add another file to the repository. This time</li>
+<li><p>Let’s add another file to the repository. This time it is an R file. Let’s call it “test.R”.</p></li>
+<li><p>Open up a shell (command) window. Make sure that it recognizes the “git” command by typing “git” into the window.</p></li>
+<li><p>Change the working directory of the shell window to your local GIT repository.</p></li>
+<li><p>Let’s first add the new file (i.e., a snapshot of your current file) to the staging area. Use the command “git add”</p></li>
+</ol>
+<pre><code>git add &#39;test.R&#39;</code></pre>
+<p>Alternatively, you could use the wildcard function to add all R files:</p>
+<pre><code>git add &#39;*.R&#39;</code></pre>
+<ol start="14" style="list-style-type: decimal">
+<li>Now commit the new file (that is, a snapshot of your current file) to your local repository. To do this use the command “git commit”. Remember that all commits must be associated with a message indicating the purpose of your commit. This is helpful when lots of collaborators are working on the project, or if you want to revert to a previous commit. Use the following syntax:</li>
+</ol>
+<pre><code>git commit -m &quot;added new R file!&quot;</code></pre>
+<ol start="15" style="list-style-type: decimal">
+<li>Now you can push the file up to the repository:</li>
+</ol>
+<pre><code>git push -u origin master</code></pre>
+<p>Now that you used the -u command, you can push to the repository simply by using “git push”.</p>
+<p>NOTE: this was particularly easy because we already configured the “tutorial” folder to be a local git repository, and GIT already knows the location of the cloud-based repository on github.</p>
+<p>If we wanted to set up a local git repository from scratch, there are a few additional steps…</p>
+</div>
+<div id="setting-up-a-git-repository" class="section level3">
+<h3>Setting up a GIT repository</h3>
+<ol style="list-style-type: decimal">
+<li><p>The first thing we need to do is create a new directory. We can call it “tutorial 2”.</p></li>
+<li><p>Open your GIT shell and navigate to this repository.</p></li>
+<li><p>Initialize the new GIT repository. For this just use the command:</p></li>
+</ol>
+<pre><code>git init</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Configure your new GIT repository.</li>
 </ol>
 </div>
 <div id="conflicts" class="section level3">

@@ -355,7 +355,9 @@ div.tocify {
 <li>Open github desktop and sign in. You only have to do this once- next time you open github desktop it will remember you!</li>
 <li>Create a new directory on your computer to hold a local copy of a new github repository. Name the repository “Tutorial”</li>
 </ol>
-<p>NOTE: I have a GIT directory on my computer where all my local GIT repositories live… I use something like “C:”. You can do whatever you want though!</p>
+<p>NOTE: I have a GIT directory on my computer where all my local GIT repositories live… I use something like</p>
+<pre><code>C:\GIT</code></pre>
+<p>You can do whatever you want though!</p>
 <ol start="4" style="list-style-type: decimal">
 <li><p>Go to github desktop and click on the ‘plus’ sign in the upper left corner. Go to the ‘add’ tab and browse to the new folder you created. This tells github desktop that you want to create a new repository in this directory.</p></li>
 <li><p>Navigate to the new repository in the left hand menu on github desktop. Click on it. Then click on the ‘Publish’ button (top right corner of the window). This will create a new cloud-based repository on github.com that will store all the content of your new repository. Go to github.com to make sure your new repository is there.</p></li>
@@ -374,15 +376,15 @@ For more information, go to [the statschats website](kevintshoemaker.github.io/s
 </code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li><p>Go back to github desktop, and click on the “changes” tab. You should see your new file in there!</p></li>
-<li><p>At the bottom of the GUI, you should see a window called “summary”. This is where you describe the changes you have made. Once you write something in there you should see that the “Commit” button at the bottom becomes available to you. Click on that button.</p></li>
-<li><p>Now that you have a committed change, it’s time to push that change up to the github repository. Click the “sync” button at the top. Now you have committed and pushed your changes!</p></li>
+<li><p>At the bottom of the GUI, you should see a window called “Summary”. This is where you describe the changes you have made. Once you write something in there you should see that the “Commit” button at the bottom becomes available to you. Click on that button.</p></li>
+<li><p>Now that you have a committed change, it’s time to push that change up to the github repository. Click the “sync” button at the top. Now you have committed AND pushed your changes!</p></li>
 </ol>
 </div>
 <div id="addcommitpush-a-file-to-the-repository-using-command-line" class="section level3">
 <h3>Add/commit/push a file to the repository using command line!</h3>
 <ol start="10" style="list-style-type: decimal">
 <li><p>Let’s add another file to the repository. This time it is an R file. Let’s call it “test.R”.</p></li>
-<li><p>Open up a shell (command) window. Make sure that it recognizes the “git” command by typing “git” into the window.</p></li>
+<li><p>Open up a shell (command) window. The easiest way is to use the GIT shell (on windows, may be called ‘GIT Bash’). Make sure that the shell recognizes the “git” command by typing “git” at the prompt and hitting enter.</p></li>
 <li><p>Change the working directory of the shell window to your local GIT repository.</p></li>
 <li><p>Let’s first add the new file (i.e., a snapshot of your current file) to the staging area. Use the command “git add”</p></li>
 </ol>
@@ -415,7 +417,18 @@ For more information, go to [the statschats website](kevintshoemaker.github.io/s
 </div>
 <div id="conflicts" class="section level3">
 <h3>Conflicts!!</h3>
-<p>github desktop does not currently have features for resolving conflicts. And conflicts WILL happen in any kind of collaborative coding project. So you need to know how to deal with this possibility. A good tutorial on respolving conflicts can be found <a href="https://gist.github.com/karenyyng/f19ff75c60f18b4b8149">here</a></p>
+<p>Github Desktop does not currently have features for resolving conflicts. And conflicts WILL happen in any kind of collaborative coding project. So you need to know how to deal with this possibility. A good tutorial on resolving conflicts can be found <a href="https://gist.github.com/karenyyng/f19ff75c60f18b4b8149">here</a>.</p>
+<p>To resolve conflicts you can use the following command:</p>
+<pre><code>git mergetool</code></pre>
+</div>
+<div id="other-topics" class="section level3">
+<h3>Other topics</h3>
+<ul>
+<li>Forking repositories</li>
+<li>Contributing to existing github sites</li>
+<li>Working with RStudio and GIT</li>
+<li>Websites in github</li>
+</ul>
 </div>
 </div>
 

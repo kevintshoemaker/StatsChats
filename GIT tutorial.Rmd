@@ -64,7 +64,13 @@ The easiest way to create a new repository is through the github desktop softwar
 2. Open github desktop and sign in. You only have to do this once- next time you open github desktop it will remember you!
 3. Create a new directory on your computer to hold a local copy of a new github repository. Name the repository "Tutorial"
 
-NOTE: I have a GIT directory on my computer where all my local GIT repositories live...  I use something like "C:\GIT". You can do whatever you want though!
+NOTE: I have a GIT directory on my computer where all my local GIT repositories live...  I use something like 
+
+```
+C:\GIT
+```
+
+You can do whatever you want though!
 
 4. Go to github desktop and click on the 'plus' sign in the upper left corner. Go to the 'add' tab and browse to the new folder you created. This tells github desktop that you want to create a new repository in this directory. 
 
@@ -91,16 +97,16 @@ For more information, go to [the statschats website](kevintshoemaker.github.io/s
 
 7. Go back to github desktop, and click on the "changes" tab. You should see your new file in there! 
 
-8. At the bottom of the GUI, you should see a window called "summary". This is where you describe the changes you have made. Once you write something in there you should see that the "Commit" button at the bottom becomes available to you. Click on that button. 
+8. At the bottom of the GUI, you should see a window called "Summary". This is where you describe the changes you have made. Once you write something in there you should see that the "Commit" button at the bottom becomes available to you. Click on that button. 
 
-9. Now that you have a committed change, it's time to push that change up to the github repository. Click the "sync" button at the top. Now you have committed and pushed your changes!
+9. Now that you have a committed change, it's time to push that change up to the github repository. Click the "sync" button at the top. Now you have committed AND pushed your changes!
 
 
 ### Add/commit/push a file to the repository using command line!
 
 10. Let's add another file to the repository. This time it is an R file. Let's call it "test.R".
 
-11. Open up a shell (command) window. Make sure that it recognizes the "git" command by typing "git" into the window.
+11. Open up a shell (command) window. The easiest way is to use the GIT shell (on windows, may be called 'GIT Bash'). Make sure that the shell recognizes the "git" command by typing "git" at the prompt and hitting enter.
 
 12. Change the working directory of the shell window to your local GIT repository. 
 
@@ -151,12 +157,25 @@ git init
 
 ### Conflicts!!
 
-github desktop does not currently have features for resolving conflicts. And conflicts WILL happen in any kind of collaborative coding project. So you need to know how to deal with this possibility. 
-A good tutorial on respolving conflicts can be found [here](https://gist.github.com/karenyyng/f19ff75c60f18b4b8149)
+Github Desktop does not currently have features for resolving conflicts. And conflicts WILL happen in any kind of collaborative coding project. So you need to know how to deal with this possibility. 
+A good tutorial on resolving conflicts can be found [here](https://gist.github.com/karenyyng/f19ff75c60f18b4b8149).
+
+To resolve conflicts you can use the following command:
+
+```
+git mergetool
+```
 
 
 
 
+
+### Other topics
+
+* Forking repositories
+* Contributing to existing github sites
+* Working with RStudio and GIT
+* Websites in github
 
 
 

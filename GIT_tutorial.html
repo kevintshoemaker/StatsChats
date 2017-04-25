@@ -11,9 +11,8 @@
 
 <meta name="author" content="Stats Chats" />
 
-<meta name="date" content="2016-10-10" />
 
-<title>News</title>
+<title>GIT tutorial</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -305,23 +304,87 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">News</h1>
+<h1 class="title toc-ignore">GIT tutorial</h1>
 <h4 class="author"><em>Stats Chats</em></h4>
-<h4 class="date"><em>October 10, 2016</em></h4>
+<h4 class="date"><em>April 24 2017</em></h4>
 
 </div>
 
 
-<div id="society-for-mathematical-biology-annual-meeting" class="section level2">
-<h2>Society for Mathematical Biology Annual Meeting</h2>
-<p>If your research interests combine mathematics and biology, consider attending the Society for Mathematical Biology Annual Meeting next July 11-17, 2017. Travel should be inexpensive, as the venue is just a short drive down the road in Salt Lake City, UT.</p>
-<p>Don’t miss this opportunity!</p>
-<p>The SMB annual meeting is held in North America every 2 years (the other years it is held abroad; see the list of <a href="smb.org">past meetings</a>) and the closest it’s ever been to NV was in 2002 when it was hosted at ASU. Information about past meetings can be found at at <a href="http://smb.org/meetings/annual.shtml%5Bsmb.org%5D" class="uri">http://smb.org/meetings/annual.shtml[smb.org]</a></p>
-<p>Deadlines, program, and other information for the 2017 meeting will appear in the coming months <a href="http://www.smb2017.org">here</a>.</p>
+<div id="git-tutorial" class="section level2">
+<h2>GIT tutorial</h2>
+<p>Today we will go through the very basic elements of GIT.</p>
+<p><strong>Q</strong> Why do we want version control?</p>
+<p><strong>Q</strong> What is GIT?</p>
+<p><strong>GIT</strong> <em>n</em>. An unpleasant or contemptible person.</p>
+<p><strong>GIT</strong> <em>n</em>. A widely used distributed version control system.</p>
+<p><strong>Q</strong> What is the difference between GIT and github?</p>
+<div id="overview-of-git" class="section level3">
+<h3>Overview of GIT</h3>
+<div class="figure">
+<img src="GIT1.png" />
+
 </div>
-<div id="nimbios-workshops" class="section level2">
-<h2>NimBioS workshops</h2>
-<p>March 1 is the next deadline for submitting requests for new scientific and educational activities at NIMBioS, including <a href="http://r20.rs6.net/tn.jsp?f=001RV57oNxCgpuYpeHO4JuWsIZda1dJXiu5JsaduWMbyyjINhphlcADwzScL5TKKdaOoVRa5jq882URPxDCAWKUc_KxVfxX4bJN_cjrFPopnr6MpNwIBfBLPspvbJB_wqQu1aWds5ZgMBZEieIFhE0jYxYMpCrBTLcxyxAtGVykdW0=&amp;c=cruUh25-MaAIYaLUh5vwqP9ElLMmApAIBM0m3KVIujw-YuccAVp6WQ==&amp;ch=KwxJxFoqyxAQ3AJp8cxoPDJQrS8YM7ViXsqxHhl5lqCJahIdeOYWfQ==">Working Groups</a> and <a href="http://r20.rs6.net/tn.jsp?f=001RV57oNxCgpuYpeHO4JuWsIZda1dJXiu5JsaduWMbyyjINhphlcADw4J9P9bMCIps0RkPehZLZH435n16APQVjH8mFQOweb--sQtnZN5WJJZbRENcyTf9XyjLfK8hqHDJFTM4WlL2cV-4BzVx25w3Xr0UJvBx__wF2rZev-HA8UM=&amp;c=cruUh25-MaAIYaLUh5vwqP9ElLMmApAIBM0m3KVIujw-YuccAVp6WQ==&amp;ch=KwxJxFoqyxAQ3AJp8cxoPDJQrS8YM7ViXsqxHhl5lqCJahIdeOYWfQ==">Investigative Workshops</a>. For information on what NIMBioS funds and does not fund as well as application requirements, click <a href="http://r20.rs6.net/tn.jsp?f=001RV57oNxCgpuYpeHO4JuWsIZda1dJXiu5JsaduWMbyyjINhphlcADw8ONeyzG27s-9mxDFrnL3sBqx__sjgVvjGGMflPC-TeaGAMSEZgWOW7U7q1yp4LHG5FDTx11NIt4IQjn4WnJ9onbhfanlZOb18X6OO04bTQF40ktzWYdvDw=&amp;c=cruUh25-MaAIYaLUh5vwqP9ElLMmApAIBM0m3KVIujw-YuccAVp6WQ==&amp;ch=KwxJxFoqyxAQ3AJp8cxoPDJQrS8YM7ViXsqxHhl5lqCJahIdeOYWfQ==">here</a>.</p>
+<div class="figure">
+<img src="GIT2.png" />
+
+</div>
+<p>Let’s walk through the basics of GIT</p>
+<p>NOTE: github offers a “desktop” software which acts as a GUI for the basic GIT operations. But if you want to use GIT you should have a basic knowledge of the GIT command line. So let’s start there!</p>
+<div id="online-git-tutorial" class="section level4">
+<h4>Online GIT tutorial</h4>
+<p>Click on <a href="https://try.github.io">this link</a> to access a basic tutorial on the GIT command line:</p>
+</div>
+<div id="get-git-on-your-computer" class="section level4">
+<h4>get GIT on your computer</h4>
+<p>The easiest way to do this is to download the <a href="https://desktop.github.com/">github desktop software</a></p>
+<p>This should download the GIT desktop software AND the GIT bash emulator for windows (if you want to use the command line!).</p>
+<p>NOTE: you can set the directory location for ‘git.exe’ in your environment variables, and then you can access GIT from any command shell!</p>
+</div>
+<div id="get-a-github-account" class="section level4">
+<h4>get a github account</h4>
+<p>If you don’t already have a github account, go to <a href="github.com" class="uri">github.com</a></p>
+</div>
+<div id="git-tutorial-2-this-time-its-for-real" class="section level4">
+<h4>GIT tutorial #2: this time it’s for real!</h4>
+<p>The easiest way to create a new repository is through github desktop. So that’s what we will do first.</p>
+<ol style="list-style-type: decimal">
+<li>Go to <a href="github.com">github</a> and log in.</li>
+<li>Open github desktop and sign in. You only have to do this once- next time you open github desktop it will remember you!</li>
+<li>Create a new directory on your computer to hold a local copy of a new github repository. Name the repository “Tutorial”</li>
+</ol>
+<p>NOTE: I have a GIT directory on my computer where all my local GIT repositories live… I use something like “C:”. You can do whatever you want though!</p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Go to github desktop and click on the ‘plus’ sign in the upper left corner. Go to the ‘add’ tab and browse to the new folder you created. This tells github desktop that you want to create a new repository in this directory.</p></li>
+<li><p>Navigate to the new repository in the left hand menu on github desktop. Click on it. Then click on the ‘Publish’ button (top right corner of the window). This will create a new cloud-based repository on github.com that will store all the content of your new repository. Go to github.com to make sure your new repository is there.</p></li>
+</ol>
+<p>NOTE: you could have created the repository online and then ‘cloned’ it to create a local repository on your computer.</p>
+<ol start="6" style="list-style-type: decimal">
+<li>Add a new text file to the repository. Call it ‘README.md’. This is a standard markdown-format textfile that github will use to describe the repository to visitors. Open the textfile in a text editor. You can write anything you want in this file, using pandoc markdown format. For example:</li>
+</ol>
+<pre><code>## GIT Tutorial
+
+This is from the &#39;stats chats&#39; GIT tutorial in April 2017
+
+For more information, go to [the statschats website](kevintshoemaker.github.com/statschats)
+</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li><p>Go back to github desktop, and click on the “changes” tab. You should see your new file in there!</p></li>
+<li><p>At the bottom of the GUI, you should see a window called “summary”. This is where you describe the changes you have made. Once you write something in there you should see that the “Commit” button at the bottom becomes available to you. Click on that button.</p></li>
+<li><p>Now that you have a committed change, it’s time to push that change up to the github repository. Click the “sync” button at the top. Now you have committed and pushed your changes!</p></li>
+</ol>
+</div>
+</div>
+<div id="addcommitpush-a-file-to-the-repository-using-command-line" class="section level3">
+<h3>Add/commit/push a file to the repository using command line!</h3>
+<ol start="10" style="list-style-type: decimal">
+<li>Let’s add another file to the repository. This time</li>
+</ol>
+</div>
+<div id="conflicts" class="section level3">
+<h3>Conflicts!!</h3>
+<p>github desktop does not currently have features for resolving conflicts. And conflicts WILL happen in any kind of collaborative coding project. So you need to know how to deal with this possibility. A good tutorial on respolving conflicts can be found <a href="https://gist.github.com/karenyyng/f19ff75c60f18b4b8149">here</a></p>
+</div>
 </div>
 
 

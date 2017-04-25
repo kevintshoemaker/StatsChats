@@ -13,194 +13,125 @@ output:
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
-## Other future topics?
+## GIT tutorial
 
-* GIT tutorial?
-* Use of the UNR grid?
+Today we will go through the very basic elements of GIT.
 
-# December 2016
+**Q** Why do we want version control?
 
-## 12/6/2016
-**Discussion topic:** SECR in JAGS for woodrats
-**Discussion leader:** Kevin Shoemaker and Elizabeth Hunter
-We will discuss a model for estimating survival and movement propensity for two species of woodrats within a hybrid zone. We are using a modified CJS model in a spatially-explicit capture-recapture (secr) framework.
+**Q** What is GIT?
 
-```{r}
-model{
-	############
-	#PRIORS
-	#Survival
-	phi0 ~ dunif(0, 1)		#mean survival rate
-	logit.phi <- log(phi0/(1-phi0))	#survival on logit scale
+**GIT** *n*. An unpleasant or contemptible person.
 
-	juvEff ~ dunif(-4,4)			#beta term for juvenile effect on survival
-	maleEff ~ dunif(-4,4)			#beta term for sex effect on survival
-	FuEff ~ dunif(-4,4)			#beta terms for effect of genotype on survival
-	MaEff ~ dunif(-4,4)
-	bcFuEff ~ dunif(-4,4)
-	bcMaEff ~ dunif(-4,4)
+**GIT** *n*. A widely used distributed version control system.
 
-  	male.prob ~ dunif(0,1)   # probability of being male (account for unknown sex)
-	Fu.prob ~ dunif(0,1)	 # probability of being a given genotype (account for unknown genotype)
-	Ma.prob ~ dunif(0,1)
-	bcFu.prob ~ dunif(0,1)
-	bcMa.prob ~ dunif(0,1)
+**Q** What is the difference between GIT and github?
 
-	#Some individuals are not sexed or genotyped, so need priors for those missing data
-	for(i in 1:n.ind){
-		isMale[i] ~ dbern(male.prob)
-		isFu[i] ~ dbern(Fu.prob)
-		isMa[i] ~ dbern(Ma.prob)
-		isbcFu[i] ~ dbern(bcFu.prob)
-		isbcMa[i] ~ dbern(bcMa.prob)
-	}
+### Overview of GIT
 
-  	#Detection    
-	lambda0.base ~ dunif(0.001, 0.5)	# mean times resident indiv captured at its given house per independent survey event
-	#logit.lambda0.base <- log(lambda0.base/(1-lambda0.base))		
-	sigma ~ dunif(0, 500)   # drop off in detection with distance	
-  	sigma2 <- pow(sigma,2)
+![](GIT1.png)
 
-  	#Movement among houses
-  	p.move.male ~ dunif(0, 0.3)
-  	p.move.female ~ dunif(0, 0.3)
+![](GIT2.png)
 
-  	###########
-  	#HOUSE MODEL
+Let's walk through the basics of GIT
 
-  	for (i in 1:n.ind){
-    		myHouse[i,firsts[i]] <- firstHouse[i]  #~ dcat(firstHouseProb[i,])
-    		p.move[i] <- isMale[i] * p.move.male + (1-isMale[i])*p.move.female
-  		for(t in (firsts[i]+1):n.periods){
-   			transitionHouse[i,t] <- pow(p.move[i], period[t-1])  #Probability of transitioning to a new house
-       		newHouseCand_unif[i,t] ~ dunif(0,n.houses)    # this could be turned into a distance kernel using the ones trick?
-      		newHouseCand_cat[i,t] <- trunc(newHouseCand_unif[i,t]+1) #~ dcat(houseprob[])  #
-  			move[i,t] ~ dbern(transitionHouse[i,t])		#latent variable: did it move to a new activity center?
-      		myHouse[i,t] <-  move[i,t]*newHouseCand_cat[i,t] + (1-move[i,t])*myHouse[i,t-1]     # which house does it live in now???  newHouse[i,t]
-  		}
-  	}
+NOTE: github offers a "desktop" software which acts as a GUI for the basic GIT operations. But if you want to use GIT you should have a basic knowledge of the GIT command line. So let's start there!
 
-	############
-	#OBSERVATION MODEL
+#### Online GIT tutorial
 
-	for(i in 1:n.ind){
-		for(t in (firsts[i]+1):n.periods){
-			#Loop only through traps near to myHouse (<200m away) that are open within a period	
-			for(r in 1:nearopen.num[firstHouse[i],t]){                
-        			lambda[i,t,nearopen[t,r,firstHouse[i]]] <- lambda0.base * exp(-1*(D2[myHouse[i,t],nearopen[t,r,firstHouse[i]]])/(2*sigma2 )) * alive[i,t]    #total exposure as function of distance
-        			ind.trap.per[i,nearopen[t,r,firstHouse[i]],t] ~ dbin(lambda[i,t,nearopen[t,r,firstHouse[i]]],eff.per[nearopen[t,r,firstHouse[i]],t])
-			}
-		}
-	}
+Click on [this link](https://try.github.io) to access a basic tutorial on the GIT command line:
 
-	############
-	#SURVIVAL MODEL
+#### get GIT on your computer
 
-  	for(i in 1:n.ind){
-    		for(t in 1:(firsts[i]-1)){
-      		alive[i,t] ~ dbern(1)
-    		}
-  	}
+The easiest way to do this is to download the [github desktop software](https://desktop.github.com/)
 
-	for(i in 1:n.ind){
-		for(t in 1:(n.periods-1)){
-			mu.phi[i,t] <- logit.phi + maleEff*isMale[i] + juvEff*isJuv[i,t] + FuEff*isFu[i] + MaEff*isMa[i] + bcFuEff*isbcFu[i] + bcMaEff*isbcMa[i]
-				#EAH: changed mu.phi to be period specific instead of just [i]
-			logit(phi[i,t]) <- mu.phi[i,t]   # expected survival rate for this individual at this time on the basis of covariates
-		}
-	}
+This should download the GIT desktop software AND the GIT bash emulator for windows (if you want to use the command line!).
 
+NOTE: you can set the directory location for 'git.exe' in your environment variables, and then you can access GIT from any command shell!
 
-	#Latent variable: living or dead
-	for(i in 1:n.ind){
-		alive[i,firsts[i]] ~ dbern(1)		#At first capture, individual is alive
-		for(t in (firsts[i]+1):n.periods){
-			transition[i,t] <- pow(phi[i,t-1], period[t-1])  #Probability of transitioning to this period (based on period duration)
-			mualive[i,t] <- alive[i,(t-1)] * transition[i,t]	#probability of each ind being alive after transitioning
-			alive[i,t] ~ dbern(mualive[i,t])		#latent variable: is it still alive?
-		}
-	}
+#### get a github account
 
-} #END MODEL
+If you don't already have a github account, go to [github.com](github.com)
+
+#### GIT tutorial #2: this time it's for real!
+
+The easiest way to create a new repository is through github desktop. So that's what we will do first.
+
+1. Go to [github](github.com) and log in. 
+2. Open github desktop and sign in. You only have to do this once- next time you open github desktop it will remember you!
+3. Create a new directory on your computer to hold a local copy of a new github repository. Name the repository "Tutorial"
+
+NOTE: I have a GIT directory on my computer where all my local GIT repositories live...  I use something like "C:\GIT". You can do whatever you want though!
+
+4. Go to github desktop and click on the 'plus' sign in the upper left corner. Go to the 'add' tab and browse to the new folder you created. This tells github desktop that you want to create a new repository in this directory. 
+
+5. Navigate to the new repository in the left hand menu on github desktop. Click on it. Then click on the 'Publish' button (top right corner of the window). This will create a new cloud-based repository on github.com that will store all the content of your new repository. Go to github.com to make sure your new repository is there.
+
+NOTE: you could have created the repository online and then 'cloned' it to create a local repository on your computer. 
+
+6. Add a new text file to the repository. Call it 'README.md'. This is a standard markdown-format textfile that github will use to describe the repository to visitors. Open the textfile in a text editor. You can write anything you want in this file, using pandoc markdown format. For example:
+
 ```
+## GIT Tutorial
 
+This is from the 'stats chats' GIT tutorial in April 2017
 
-# November 2016
-
-## 11/29/2016
-Discussion topic: Mixed effects modeling. Although Pinhiero and Bates suggest that LRT is appropriate for mixed effects models, we are still unsure how to compute the degrees of freedom for the Chi-squared distribution that describes the null hypothesis. We are also wondering exactly why it is not recommended to use information criteria to compare models with different random effects structures. Paul mentioned the possibility of generating null distributions for such questions and seeing how well they match with the Chi-squared distribution recommended by pinhiero and bates.. Phillip mentioned that Ken Burnham "solved" this issue by using the trace of the "G-matrix" to approximate the number of free parameters in the model. 
-
-Here are some links with good guidance!!   
-
-
-[Link1](http://stats.stackexchange.com/questions/111905/what-is-the-upside-of-treating-a-factor-as-random-in-a-mixed-model)   
-[Link2](http://stats.stackexchange.com/questions/117497/comparing-between-random-effects-structures-in-a-linear-mixed-effects-model)   
-
-## 11/22/2016
-Discussion leader: Jessi Brown, Chris Vennum
-We discussed what you can do with mixed models once you have fitted them using something like "lmer" from the "lme4" package in R. In partucular, we discussed how to use R to bootstrap predictions from mixed effects models and whether confidence intervals from lmer compared favorably with those from a Bayesian modeling approach in JAGS. 
-
-## 11/15/2016
-Leader: Chris Vennum
-We continued our discussion of linear mixed models- in particular, we discussed (1) strategies for evaluating the normality of residuals if the random effect terms do most of the explaining, and (2) whether parameter estimation breaks down if some or all predictor variables are perfectly correlated with a "group" variable (all sampling units within a group share the same covariate value). For the latter case, using a simulation (below), Thomas Riecke demonstrated that the REML algorithm in "lmer" was able to estimate fixed effects terms appropriately. 
-
-```{r}
-#########################################################################
-# group number, cluster size
-#########################################################################
-groups <- 50
-cluster <- 5
-
-#########################################################################
-# generate random groups
-#########################################################################
-random <- seq(1,groups,1)                               # 100 random groups
-data <- data.frame(rep(random, each = cluster))            # build a data.frame with 10 observations per cluster
-
-#########################################################################
-# generate 100 covariate values
-#########################################################################
-x <- rnorm(groups, 0, 2); hist(x)
-data[,2] <- NA
-
-#########################################################################
-# assign covariate values to groups... all the same
-#########################################################################
-for (i in 1:nrow(data)){
-  data[i,2] <- x[data[i,1]]
-}
-
-#########################################################################
-# generate data with noise
-#########################################################################
-alpha <- 5
-beta <- 1
-data[,3] <- alpha + data[,2] * beta + rnorm(groups * cluster, 0, 3) 
-
-par(family = 'serif', mar = c(5.1,5.1,2.1,2.1))
-plot(data[,3] ~ data[,2], ylab = 'Response', xlab = 'Covariate', cex.lab = 2)
-
-#########################################################################
-# assign less ridiculous column names
-#########################################################################
-colnames(data) <- c('group', 'covariate', 'response')
-
-library(lme4)
-summary(lmer(response ~ covariate + (1|group), data = data))
+For more information, go to [the statschats website](kevintshoemaker.github.com/statschats)
 
 ```
 
+7. Go back to github desktop, and click on the "changes" tab. You should see your new file in there! 
 
-## 11/8/2016 
-Since no one came with questions, we discussed mixed models. Several 'stats chats' participants over the last year have raised the question of how to determine the 'significance' of random effects, and how to decide whether to keep or remove specific random effects from a (generalized) linear mixed model. We discussed the possibility of running bootstrap tests in R to determine whether more variance is explained by the random effect than would be predicted on the basis of random chance. Paul raised the question of whether you can test for abnormal random effects distributions- e.g., bimodal distributions. We will continue this discussion next week...
+8. At the bottom of the GUI, you should see a window called "summary". This is where you describe the changes you have made. Once you write something in there you should see that the "Commit" button at the bottom becomes available to you. Click on that button. 
 
-## 11/1/2016
-Since no one came with questions, we discussed the quantitative curriculum at UNR for graduate students and undergraduates. We started out by wondering aloud if coding and quantitive analysis could be embedded in the curriculum so that students had more exposure to these tools in many different contexts. Some key points of our discussion:  
+9. Now that you have a committed change, it's time to push that change up to the github repository. Click the "sync" button at the top. Now you have committed and pushed your changes!
 
-* We need to reach out to Tom Parchman in Biology to discuss whether his existing class could serve as a basic introduction to programming for grad students.    
-* Students need more consistent exposure to coding, stats, and mathematics (e.g., calc, linear algebra)
-* Bootcamps can serve a useful purpose: e.g., programming in R and python, Calculus review, linear algebra review, probability review
-* Grad students are in need of more 700-level courses. Several grad students would like to pursue a "crash course" in basic mathematical concepts, potentially following Otto and Day, and potentially to be offered in Fall 2017. 
+
+### Add/commit/push a file to the repository using command line!
+
+10. Let's add another file to the repository. This time 
+
+
+### Conflicts!!
+
+github desktop does not currently have features for resolving conflicts. And conflicts WILL happen in any kind of collaborative coding project. So you need to know how to deal with this possibility. 
+A good tutorial on respolving conflicts can be found [here](https://gist.github.com/karenyyng/f19ff75c60f18b4b8149)
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

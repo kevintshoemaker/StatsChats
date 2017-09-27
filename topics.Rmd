@@ -1,7 +1,7 @@
 ---
 title: "Topics"
 author: "Stats Chats"
-date: "November 8, 2016"
+date: "September 27, 2017"
 output: 
   html_document: 
     theme: flatly
@@ -20,6 +20,14 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 * Ordination?
 * SQL databases?
 * Bayesian priors?
+
+# September 2017
+
+## 9/21/2017
+We discussed Zach Marion's Bayesian model for partitioning diversity.  
+
+## 9/14/2017
+Initial planning meeting for Spring 2017 semester.
 
 # February 2017
 

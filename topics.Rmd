@@ -27,7 +27,7 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 We discussed Zach Marion's Bayesian model for partitioning diversity.  
 
 ## 9/14/2017
-Initial planning meeting for Spring 2017 semester.
+Initial planning meeting for Fall 2017 semester.
 
 # February 2017
 

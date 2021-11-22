@@ -1,7 +1,7 @@
 ---
 title: "GIT tutorial"
-author: "Stats Chats"
-date: "April 24 2017"
+author: "Stats Chats and NRES 746"
+date: "November 2021"
 output: 
   html_document: 
     theme: flatly
@@ -13,31 +13,168 @@ output:
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
-## GIT tutorial
+NOTE: this tutorial borrows heavily from Dr. Jonathan Greenberg's GIT workshop for GRAD 778. 
 
-Today we will go through the very basic elements of GIT.
+# GIT tutorial
 
-**Q** Why do we want version control?
+Today we will run through a basic version control workflow using three different systems:
 
-**Q** What is GIT?
+1. github.com
+2. github desktop
+3. command line
 
-***GIT*** *n*. An unpleasant or contemptible person.
+## Install key software
 
-***GIT*** *n*. A widely used distributed version control system.
+1. Please get a github account from: [https://github.com/](https://github.com/). It's free and very easy! 
 
-**Q** What is the difference between GIT and github?
+2. Install GitHub Desktop from [https://desktop.github.com/](https://desktop.github.com/). This is a simple GUI version of GIT that makes it easy to manage repositories that are hosted on GitHub.com.  
 
-### Overview of GIT
+3. Install GIT and GitHub Command Line Interface (CLI). GIT contains the base command-line functionality for version control, and GitHub CLI makes it easier to work with a respository that is hosted on GitHub. Note that GitHub Desktop already contains a version of GIT but it's easier if you install it separately for command line usage- sorry!
+    a. Windows:   
+        - Install GIT: https://git-scm.com/downloads (use installation defaults)
+        - Install GitHub CLI: https://github.com/cli/cli/releases/tag/v2.2.0
+            - You probably want the "gh_2.2.0_windows_amd64.msi" version
+
+    b. Mac:
+        - We are going to do this using "HomeBrew" to do our installations. If you've already installed HomeBrew previously, you don't need to do this step. 
+        - Please first install HomeBrew by opening Terminal and:
+    
+        ```
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        ```
+        - If it asks you for a password, this is your local Mac password.
+        - Next, update Homebrew:
+        
+        ```
+        brew update
+        ```
+        - If you get an error, try running these lines:
+        
+        ```        
+        git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow
+        git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow
+        brew update
+        ```
+        - Now install git and GitHub CLI:
+                
+        ```
+        brew install git
+        brew install gh
+        ```
+    c. Other OSs: Please check: [https://github.com/cli/cli#installation](https://github.com/cli/cli#installation)
+
+
+## Some definitions
+
+***GIT*** *n*. An unpleasant or contemptible person (British slang).
+
+Oops, not that definition. Here are the definitions we are actually working with:
+
+* *Repository* (repo): container for all the files and folders in your project. Repositories are usually stored locally and in the cloud
+* *Version control*: system for tracking changes, collaborating on code and other documents, handling conflicts, branching/merging solutions, reverting to old versions, etc.
+* *GIT*: a widely used software platform for version control with functionality for merging, branching, resolving conflicts, cloning, etc
+* *github*: web-based system for storing repositories in the cloud and interfacing with GIT repositories.
+* *main branch*: the 'official' or 'stable' version of the repository ('main' is the default name for this branch in github) (used to have the default name 'master') (you will have local and remote versions of the main branch)
+* *branching*: creating a new version of the project within the repo ('development branch') that is not yet ready for primetime. 
+* *staging*: proposing some new files or edits for version control (propose a change to the repository)
+* *committing*: making staged changes 'official' (formally add a staged edit or addition to the repository)
+* *push*: export any changes to your local repository 'upstream' to the remote repository.  
+* *pull*: import any new changes in the remote repo with the local repository. 
+* *origin*: shorthand for the remote version of a GIT repository, often stored in github.
+* *HEAD*: the most recently committed version of a repo branch
+* *cloning*: create a fresh local version of an online repository.
+* *forking*: copying someone else's repository into your own account so you have full edit privileges. (unique to github) (you can use this to propose changes to other people's projects)
+* *pull request*: asking permission to merge some proposed edits (e.g., in the form of a development branch or fork) into a different (often the main) branch
+
+Today we'll get started with GIT- but as always, there's lots more to know than what we're gonna go through today!
+
+
+## Overview of version control using GIT
+
+In a version control system, there tends to be a single remote version of the repository. Contributors to a project will "clone" a version of the repository locally (git clone), make changes to that repo (git add, git commit), and will push those changes to the remote repository (git push). Prior to working on a project, users will often pull the latest version from the remote repository to make sure they have any changes that have been made by other project participants (git pull). So the typical workflow might look like:
+
+0. Clone the repo (create a local copy; git clone) [only do this the first time]
+1. fetch/pull any changes from the remote repository (git pull).
+2. make and test changes (git branch, git add, git commit, git merge)
+3. push upstream to the remote repository (git push)
+
+
 
 ![](GIT1.png)
 
 ![](GIT2.png)
 
-Let's walk through the basics of GIT
+## Workflow #1: walk through the basics of GIT using GitHub
 
-NOTE: github offers a "desktop" software which acts as a GUI for the basic GIT operations. But if you want to use GIT you should have a basic knowledge of the GIT command line. So let's start there!
+### Step 1: create an online repository on github.com
 
-### Online GIT tutorial
+1. Sign into [github.com](github.com)
+2. At the top right, create a new repo using the plus sign icon
+3. Add a short description, and make sure the 'add a README file' box is checked
+4. Click "create repository"
+5. If you click "code" at the top of the screen you should se a file called "README.md". This is a markdown textfile that you can use to describe your project!  
+
+### Step 2: create a new development branch
+
+We often want to make a branch so that we can test any new code before we commit it to the main trunk (the "main" branch, or trunk, is the 'stable' version). 
+
+To do this in GitHub, Click "Code" at the top of your repo. You will see "main" at the top left. Click that, and in the branch name (labeled "find or create a branch") type "newbranch" and click "Create branch: newbranch from 'main'".  At this point you have created a new branch, but they are identical (since you haven't changed anything). 
+
+### Step 3. make a change to your files and commit to the new branch
+
+We are going to edit the README.md file that was automatically created for you when you made the repo.  Once we do this, we are going to "Commit" the changes which means we are going to create a new version of our file (while preserving the original one). Usually you will edit code in your own developer environment, but we can do simple edits on the github website for now.
+
+1. Click "Code". 
+2. Make sure you are in the "readme-edits" branch shown at the top left. If you are still in "main", drop that down and select the "readme-edits" branch:
+3. Click the README.md filename, then click the "Edit this file" icon (the little pencil).
+4. Make any change to this file. Note that this is a markdown file, so you can create headers, italics etc just like you would with RMarkdown!
+5. Once you are done, you are going to save/commit changes (simultaneously for now, when we start doing real coding these will be separate steps). Write something helpful (but short, under 50 characters) in the Commit changes boxes, like "README.md edit to tell the world about myself".  Click "Commit changes".
+6. Confirm you are still in the "readme-edits" branch, and click the README.md file.  Check to make sure it has your changes.
+7. Now change the branch back to "main".  Check the README.md file again and you should see the original file!  You have preserved both versions of the file!
+
+
+### Step 4: merge the change back to the main branch
+
+We are going to create a "pull request" to merge our new README.md into the main branch and then merge the pull request into our main branch.
+
+1. At the top of your repo, click "Pull requests".
+2. Create a "New pull request". At the top, set the "base" to be "main" and the "compare" to be "readme-edits".
+3. Take a look at the comparison.  It should show additions and subtractions from the original README.md. 
+4. Click "Create pull request".  
+5. Title your pull request and write a description of the changes, e.g. "Wrote a header in markdown". 
+6. Click "Create pull request".
+7. Now we'll merge the changes.  Start by clicking the "Pull requests" at the top.  You will see your pull request show up.  Click it.
+8. Click "Merge pull request", and then "Confirm merge".
+9. Now that a merge has occurred, it is good practice to delete the branch.  You can always create a fresh branch for new features.  Do this now, "Delete branch".
+
+
+## Workflow #2: version control using GitHub desktop
+
+0. Open GitHub Desktop, and configure with your GitHub account info. (you only need to do this once) 
+1. In github.com, click on the green 'Code' button and select "Open with GitHub Desktop". This will clone your repository to a default location such as Documents/GitHub/<repo name>. Alternatively, you could have cloned the repo from GitHub Desktop: File>>CLone repository. 
+2. Find your local working directory for the repository. Make sure the README.md is in there!
+3. Create a new textfile in your working directory- for example, a file with the .R extension. You could go ahead and create a new R project in this directory!
+4. Go back to GitHub Desktop, and make sure the new changes appear in the lefthand panel. 
+5. In the lower left, type a name for your commit, and then press the button "Commit to main". 
+6. In the top banner, click on "Push origin"
+
+Note that every time you start working on a collaborative project, you will probably want to click on "Fetch origin" at the top to make sure you're working with the most recent version. Also, this includes projects where you are collaborating with yourself- that is, working from several different computers, each with its own local version of the repo. 
+
+
+## Workflow #4: version control with Git command line and GitHub CLI
+
+GitHub Desktop is great and all, but if you want to use GIT you should have a basic knowledge of the GIT command line. So let's run this as well!
+
+Here are some of the basic GIT commands:
+* *git status*   - check to see if there are unstaged or staged changes to the local respository. Always good to run before doing anything!
+* *git log* - inspect previous commits. 
+* *git checkout* - switch between different branches of a repository.
+* *git clone* - fetch materials from a remote repository.  
+
+
+### Step 1: clone your repository locally.
+
+
 
 Click on [this link](https://try.github.io) to access a basic tutorial on the GIT command line.
 
@@ -102,7 +239,14 @@ For more information, go to [the statschats website](kevintshoemaker.github.io/s
 9. Now that you have a committed change, it's time to push that change up to the github repository. Click the "sync" button at the top. Now you have committed AND pushed your changes!
 
 
-### Add/commit/push a file to the repository using command line!
+
+#### Undoing a commit
+
+Sometimes something may go terribly wrong with a commit. For example, you accidentally commit a file that is too big to store in git (100 MB- this has happened to me several times)
+
+1. git commit -m "Something terribly misguided"     [this is you making a terrible error]         
+2. git reset HEAD~1                [this undoes the commit by reverting to the previously committed version]                                
+ 
 
 10. Let's add another file to the repository. This time it is an R file. Let's call it "test.R".
 

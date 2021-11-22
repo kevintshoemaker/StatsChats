@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Stats Chats and NRES 746" />
+
+
+<title>GIT tutorial</title>
+
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Math/Bio Stats Chats</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="topics.html">Topics</a>
+</li>
+<li>
+  <a href="news.html">News</a>
+</li>
+<li>
+  <a href="Links.html">Links</a>
+</li>
+<li>
+  <a href="GIT_tutorial.html">GIT tutorial</a>
+</li>
+<li>
+  <a href="https://docs.google.com/spreadsheets/d/1qdmvlnrLDH8bIeHXflAGDeM9MIV74G6Sm1zn2mCtqgM/edit#gid=0">UNR quant. course list</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">GIT tutorial</h1>
+<h4 class="author">Stats Chats and NRES 746</h4>
+<h4 class="date">November 2021</h4>
+
+</div>
+
+
+<p>NOTE: this tutorial borrows heavily from Dr. Jonathan Greenberg’s GIT workshop for GRAD 778.</p>
+<div id="git-tutorial" class="section level1">
+<h1>GIT tutorial</h1>
+<p>Today we will run through a basic version control workflow using three different systems:</p>
+<ol style="list-style-type: decimal">
+<li>github.com</li>
+<li>github desktop</li>
+<li>command line</li>
+</ol>
+<div id="install-key-software" class="section level2">
+<h2>Install key software</h2>
+<ol style="list-style-type: decimal">
+<li><p>Please get a github account from: <a href="https://github.com/">https://github.com/</a>. It’s free and very easy!</p></li>
+<li><p>Install GitHub Desktop from <a href="https://desktop.github.com/">https://desktop.github.com/</a>. This is a simple GUI version of GIT that makes it easy to manage repositories that are hosted on GitHub.com.</p></li>
+<li><p>Install GIT and GitHub Command Line Interface (CLI). GIT contains the base command-line functionality for version control, and GitHub CLI makes it easier to work with a respository that is hosted on GitHub. Note that GitHub Desktop already contains a version of GIT but it’s easier if you install it separately for command line usage- sorry!</p>
+<ol style="list-style-type: lower-alpha">
+<li>Windows:
+<ul>
+<li>Install GIT: <a href="https://git-scm.com/downloads" class="uri">https://git-scm.com/downloads</a> (use installation defaults)</li>
+<li>Install GitHub CLI: <a href="https://github.com/cli/cli/releases/tag/v2.2.0" class="uri">https://github.com/cli/cli/releases/tag/v2.2.0</a>
+<ul>
+<li>You probably want the “gh_2.2.0_windows_amd64.msi” version</li>
+</ul></li>
+</ul></li>
+<li>Mac:
+<ul>
+<li>We are going to do this using “HomeBrew” to do our installations. If you’ve already installed HomeBrew previously, you don’t need to do this step.</li>
+<li>Please first install HomeBrew by opening Terminal and:</li>
+</ul>
+<pre><code>  /bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;</code></pre>
+<ul>
+<li>If it asks you for a password, this is your local Mac password.</li>
+<li>Next, update Homebrew:</li>
+</ul>
+<pre><code>brew update</code></pre>
+<ul>
+<li>If you get an error, try running these lines:</li>
+</ul>
+<pre><code>git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow
+git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow
+brew update</code></pre>
+<ul>
+<li>Now install git and GitHub CLI:</li>
+</ul>
+<pre><code>brew install git
+brew install gh</code></pre></li>
+<li>Other OSs: Please check: <a href="https://github.com/cli/cli#installation">https://github.com/cli/cli#installation</a></li>
+</ol></li>
+</ol>
+</div>
+<div id="some-definitions" class="section level2">
+<h2>Some definitions</h2>
+<p><strong><em>GIT</em></strong> <em>n</em>. An unpleasant or contemptible person (British slang).</p>
+<p>Oops, not that definition. Here are the definitions we are actually working with:</p>
+<ul>
+<li><em>Repository</em> (repo): container for all the files and folders in your project. Repositories are usually stored locally and in the cloud</li>
+<li><em>Version control</em>: system for tracking changes, collaborating on code and other documents, handling conflicts, branching/merging solutions, reverting to old versions, etc.</li>
+<li><em>GIT</em>: a widely used software platform for version control with functionality for merging, branching, resolving conflicts, cloning, etc</li>
+<li><em>github</em>: web-based system for storing repositories in the cloud and interfacing with GIT repositories.</li>
+<li><em>main branch</em>: the ‘official’ or ‘stable’ version of the repository (‘main’ is the default name for this branch in github) (used to have the default name ‘master’) (you will have local and remote versions of the main branch)</li>
+<li><em>branching</em>: creating a new version of the project within the repo (‘development branch’) that is not yet ready for primetime.</li>
+<li><em>staging</em>: proposing some new files or edits for version control (propose a change to the repository)</li>
+<li><em>committing</em>: making staged changes ‘official’ (formally add a staged edit or addition to the repository)</li>
+<li><em>push</em>: export any changes to your local repository ‘upstream’ to the remote repository.<br />
+</li>
+<li><em>pull</em>: import any new changes in the remote repo with the local repository.</li>
+<li><em>origin</em>: shorthand for the remote version of a GIT repository, often stored in github.</li>
+<li><em>HEAD</em>: the most recently committed version of a repo branch</li>
+<li><em>cloning</em>: create a fresh local version of an online repository.</li>
+<li><em>forking</em>: copying someone else’s repository into your own account so you have full edit privileges. (unique to github) (you can use this to propose changes to other people’s projects)</li>
+<li><em>pull request</em>: asking permission to merge some proposed edits (e.g., in the form of a development branch or fork) into a different (often the main) branch</li>
+</ul>
+<p>Today we’ll get started with GIT- but as always, there’s lots more to know than what we’re gonna go through today!</p>
+</div>
+<div id="overview-of-version-control-using-git" class="section level2">
+<h2>Overview of version control using GIT</h2>
+<p>In a version control system, there tends to be a single remote version of the repository. Contributors to a project will “clone” a version of the repository locally (git clone), make changes to that repo (git add, git commit), and will push those changes to the remote repository (git push). Prior to working on a project, users will often pull the latest version from the remote repository to make sure they have any changes that have been made by other project participants (git pull). So the typical workflow might look like:</p>
+<ol start="0" style="list-style-type: decimal">
+<li>Clone the repo (create a local copy; git clone) [only do this the first time]</li>
+<li>fetch/pull any changes from the remote repository (git pull).</li>
+<li>make and test changes (git branch, git add, git commit, git merge)</li>
+<li>push upstream to the remote repository (git push)</li>
+</ol>
+<p><img src="GIT1.png" /></p>
+<p><img src="GIT2.png" /></p>
+</div>
+<div id="workflow-1-walk-through-the-basics-of-git-using-github" class="section level2">
+<h2>Workflow #1: walk through the basics of GIT using GitHub</h2>
+<div id="step-1-create-an-online-repository-on-github.com" class="section level3">
+<h3>Step 1: create an online repository on github.com</h3>
+<ol style="list-style-type: decimal">
+<li>Sign into <a href="github.com">github.com</a></li>
+<li>At the top right, create a new repo using the plus sign icon</li>
+<li>Add a short description, and make sure the ‘add a README file’ box is checked</li>
+<li>Click “create repository”</li>
+<li>If you click “code” at the top of the screen you should se a file called “README.md”. This is a markdown textfile that you can use to describe your project!</li>
+</ol>
+</div>
+<div id="step-2-create-a-new-development-branch" class="section level3">
+<h3>Step 2: create a new development branch</h3>
+<p>We often want to make a branch so that we can test any new code before we commit it to the main trunk (the “main” branch, or trunk, is the ‘stable’ version).</p>
+<p>To do this in GitHub, Click “Code” at the top of your repo. You will see “main” at the top left. Click that, and in the branch name (labeled “find or create a branch”) type “newbranch” and click “Create branch: newbranch from ‘main’”. At this point you have created a new branch, but they are identical (since you haven’t changed anything).</p>
+</div>
+<div id="step-3.-make-a-change-to-your-files-and-commit-to-the-new-branch" class="section level3">
+<h3>Step 3. make a change to your files and commit to the new branch</h3>
+<p>We are going to edit the README.md file that was automatically created for you when you made the repo. Once we do this, we are going to “Commit” the changes which means we are going to create a new version of our file (while preserving the original one). Usually you will edit code in your own developer environment, but we can do simple edits on the github website for now.</p>
+<ol style="list-style-type: decimal">
+<li>Click “Code”.</li>
+<li>Make sure you are in the “readme-edits” branch shown at the top left. If you are still in “main”, drop that down and select the “readme-edits” branch:</li>
+<li>Click the README.md filename, then click the “Edit this file” icon (the little pencil).</li>
+<li>Make any change to this file. Note that this is a markdown file, so you can create headers, italics etc just like you would with RMarkdown!</li>
+<li>Once you are done, you are going to save/commit changes (simultaneously for now, when we start doing real coding these will be separate steps). Write something helpful (but short, under 50 characters) in the Commit changes boxes, like “README.md edit to tell the world about myself”. Click “Commit changes”.</li>
+<li>Confirm you are still in the “readme-edits” branch, and click the README.md file. Check to make sure it has your changes.</li>
+<li>Now change the branch back to “main”. Check the README.md file again and you should see the original file! You have preserved both versions of the file!</li>
+</ol>
+</div>
+<div id="step-4-merge-the-change-back-to-the-main-branch" class="section level3">
+<h3>Step 4: merge the change back to the main branch</h3>
+<p>We are going to create a “pull request” to merge our new README.md into the main branch and then merge the pull request into our main branch.</p>
+<ol style="list-style-type: decimal">
+<li>At the top of your repo, click “Pull requests”.</li>
+<li>Create a “New pull request”. At the top, set the “base” to be “main” and the “compare” to be “readme-edits”.</li>
+<li>Take a look at the comparison. It should show additions and subtractions from the original README.md.</li>
+<li>Click “Create pull request”.<br />
+</li>
+<li>Title your pull request and write a description of the changes, e.g. “Wrote a header in markdown”.</li>
+<li>Click “Create pull request”.</li>
+<li>Now we’ll merge the changes. Start by clicking the “Pull requests” at the top. You will see your pull request show up. Click it.</li>
+<li>Click “Merge pull request”, and then “Confirm merge”.</li>
+<li>Now that a merge has occurred, it is good practice to delete the branch. You can always create a fresh branch for new features. Do this now, “Delete branch”.</li>
+</ol>
+</div>
+</div>
+<div id="workflow-2-version-control-using-github-desktop" class="section level2">
+<h2>Workflow #2: version control using GitHub desktop</h2>
+<ol start="0" style="list-style-type: decimal">
+<li>Open GitHub Desktop, and configure with your GitHub account info. (you only need to do this once)</li>
+<li>In github.com, click on the green ‘Code’ button and select “Open with GitHub Desktop”. This will clone your repository to a default location such as Documents/GitHub/<repo name>. Alternatively, you could have cloned the repo from GitHub Desktop: File&gt;&gt;CLone repository.</li>
+<li>Find your local working directory for the repository. Make sure the README.md is in there!</li>
+<li>Create a new textfile in your working directory- for example, a file with the .R extension. You could go ahead and create a new R project in this directory!</li>
+<li>Go back to GitHub Desktop, and make sure the new changes appear in the lefthand panel.</li>
+<li>In the lower left, type a name for your commit, and then press the button “Commit to main”.</li>
+<li>In the top banner, click on “Push origin”</li>
+</ol>
+<p>Note that every time you start working on a collaborative project, you will probably want to click on “Fetch origin” at the top to make sure you’re working with the most recent version. Also, this includes projects where you are collaborating with yourself- that is, working from several different computers, each with its own local version of the repo.</p>
+</div>
+<div id="workflow-4-version-control-with-git-command-line-and-github-cli" class="section level2">
+<h2>Workflow #4: version control with Git command line and GitHub CLI</h2>
+<p>GitHub Desktop is great and all, but if you want to use GIT you should have a basic knowledge of the GIT command line. So let’s run this as well!</p>
+<p>Here are some of the basic GIT commands: * <em>git status</em> - check to see if there are unstaged or staged changes to the local respository. Always good to run before doing anything! * <em>git log</em> - inspect previous commits. * <em>git checkout</em> - switch between different branches of a repository. * <em>git clone</em> - fetch materials from a remote repository.</p>
+<div id="step-1-clone-your-repository-locally." class="section level3">
+<h3>Step 1: clone your repository locally.</h3>
+<p>Click on <a href="https://try.github.io">this link</a> to access a basic tutorial on the GIT command line.</p>
+<p>Much more information can be found <a href="https://git-scm.com/">here</a></p>
+</div>
+<div id="step-1-get-git" class="section level3">
+<h3>Step 1: Get GIT!!</h3>
+<p>The easiest way to do this is to download the <a href="https://desktop.github.com/">github desktop software</a></p>
+<p>This should download the GIT desktop software AND the GIT bash emulator for windows (if you want to use the command line!).</p>
+<p>NOTE: you can set the directory location for ‘git.exe’ in your environment variables, and then you can access GIT from any command shell!</p>
+</div>
+<div id="step-1-get-github" class="section level3">
+<h3>Step 1: Get github!</h3>
+<p>If you don’t already have a github account, go to <a href="github.com">github.com</a></p>
+</div>
+<div id="git-tutorial-2-this-time-its-for-real" class="section level3">
+<h3>GIT tutorial #2: this time it’s for real!</h3>
+<p>The easiest way to create a new repository is through the github desktop software. So that’s what we will do first.</p>
+<ol style="list-style-type: decimal">
+<li>Go to <a href="github.com">github</a> and log in.</li>
+<li>Open github desktop and sign in. You only have to do this once- next time you open github desktop it will remember you!</li>
+<li>Create a new directory on your computer to hold a local copy of a new github repository. Name the repository “Tutorial”</li>
+</ol>
+<p>NOTE: I have a GIT directory on my computer where all my local GIT repositories live… I use something like</p>
+<pre><code>C:\GIT</code></pre>
+<p>You can do whatever you want though!</p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Go to github desktop and click on the ‘plus’ sign in the upper left corner. Go to the ‘add’ tab and browse to the new folder you created. This tells github desktop that you want to create a new repository in this directory.</p></li>
+<li><p>Navigate to the new repository in the left hand menu on github desktop. Click on it. Then click on the ‘Publish’ button (top right corner of the window). This will create a new cloud-based repository on github.com that will store all the content of your new repository. Go to github.com to make sure your new repository is there.</p></li>
+</ol>
+<p>NOTE: you could have created the repository online and then ‘cloned’ it to create a local repository on your computer. To do this on the command line: open the git shell, navigate to your local repository directory, and use the following command (e.g.):</p>
+<pre><code>git clone &#39;https://github.com/kevintshoemaker/Tutorial.git&#39;</code></pre>
+<p>Aside from creating a directory through github desktop, this is the easiest way to set up a local git repo!</p>
+<ol start="6" style="list-style-type: decimal">
+<li>Add a new text file to the repository. Call it ‘README.md’. This is a standard markdown-format textfile that github will use to describe the repository to visitors. Open the textfile in a text editor. You can write anything you want in this file, using pandoc markdown format. For example:</li>
+</ol>
+<pre><code>## GIT Tutorial
+
+This is from the &#39;stats chats&#39; GIT tutorial in April 2017
+
+For more information, go to [the statschats website](kevintshoemaker.github.io/statschats)
+</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li><p>Go back to github desktop, and click on the “changes” tab. You should see your new file in there!</p></li>
+<li><p>At the bottom of the GUI, you should see a window called “Summary”. This is where you describe the changes you have made. Once you write something in there you should see that the “Commit” button at the bottom becomes available to you. Click on that button.</p></li>
+<li><p>Now that you have a committed change, it’s time to push that change up to the github repository. Click the “sync” button at the top. Now you have committed AND pushed your changes!</p></li>
+</ol>
+<div id="undoing-a-commit" class="section level4">
+<h4>Undoing a commit</h4>
+<p>Sometimes something may go terribly wrong with a commit. For example, you accidentally commit a file that is too big to store in git (100 MB- this has happened to me several times)</p>
+<ol style="list-style-type: decimal">
+<li><p>git commit -m “Something terribly misguided” [this is you making a terrible error]<br />
+</p></li>
+<li><p>git reset HEAD~1 [this undoes the commit by reverting to the previously committed version]</p></li>
+<li><p>Let’s add another file to the repository. This time it is an R file. Let’s call it “test.R”.</p></li>
+<li><p>Open up a shell (command) window. The easiest way is to use the GIT shell (on windows, may be called ‘GIT Bash’). Make sure that the shell recognizes the “git” command by typing “git” at the prompt and hitting enter.</p></li>
+<li><p>Change the working directory of the shell window to your local GIT repository.</p></li>
+<li><p>Let’s first add the new file (i.e., a snapshot of your current file) to the staging area. Use the command “git add”</p></li>
+</ol>
+<pre><code>git add &#39;test.R&#39;</code></pre>
+<p>Alternatively, you could use the wildcard function to add all R files:</p>
+<pre><code>git add &#39;*.R&#39;</code></pre>
+<ol start="14" style="list-style-type: decimal">
+<li>Now commit the new file (that is, a snapshot of your current file) to your local repository. To do this use the command “git commit”. Remember that all commits must be associated with a message indicating the purpose of your commit. This is helpful when lots of collaborators are working on the project, or if you want to revert to a previous commit. Use the following syntax:</li>
+</ol>
+<pre><code>git commit -m &quot;added new R file!&quot;</code></pre>
+<ol start="15" style="list-style-type: decimal">
+<li>Now you can push the file up to the repository:</li>
+</ol>
+<pre><code>git push -u origin master</code></pre>
+<p>Now that you used the -u command, you can push to the repository simply by using “git push”.</p>
+<p>NOTE: this was particularly easy because we already configured the “tutorial” folder to be a local git repository, and GIT already knows the location of the cloud-based repository on github.</p>
+<p>If we wanted to set up a local git repository from scratch, there are a few additional steps…</p>
+</div>
+</div>
+<div id="setting-up-a-git-repository" class="section level3">
+<h3>Setting up a GIT repository</h3>
+<ol style="list-style-type: decimal">
+<li><p>The first thing we need to do is create a new directory. We can call it “tutorial 2”.</p></li>
+<li><p>Open your GIT shell and navigate to this repository.</p></li>
+<li><p>Initialize the new GIT repository. For this just use the command:</p></li>
+</ol>
+<pre><code>git init</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Configure your new GIT repository.</li>
+</ol>
+</div>
+<div id="conflicts" class="section level3">
+<h3>Conflicts!!</h3>
+<p>Github Desktop does not currently have features for resolving conflicts. And conflicts WILL happen in any kind of collaborative coding project. So you need to know how to deal with this possibility. A good tutorial on resolving conflicts can be found <a href="https://gist.github.com/karenyyng/f19ff75c60f18b4b8149">here</a>.</p>
+<p>To resolve conflicts you can use the following command:</p>
+<pre><code>git mergetool</code></pre>
+</div>
+<div id="other-topics" class="section level3">
+<h3>Other topics</h3>
+<ul>
+<li>Forking repositories</li>
+<li>Contributing to existing github sites</li>
+<li>Working with RStudio and GIT</li>
+<li>Websites in github</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

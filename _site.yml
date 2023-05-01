@@ -5,13 +5,13 @@ navbar:
   left:
     - text: "Home"
       href: index.html
-    - text: "Topics"
-      href: topics.html
-    - text: "News"
-      href: news.html
-    - text: "Links"
-      href: Links.html
-    - text: "GIT tutorial"
-      href: GIT_tutorial.html
-    - text: "UNR quant. course list"
-      href: https://docs.google.com/spreadsheets/d/1qdmvlnrLDH8bIeHXflAGDeM9MIV74G6Sm1zn2mCtqgM/edit#gid=0
+    # - text: "Topics"
+    #   href: topics.html
+    # - text: "News"
+    #   href: news.html
+    # - text: "Links"
+    #   href: Links.html
+    # - text: "GIT tutorial"
+    #   href: GIT_tutorial.html
+    # - text: "UNR quant. course list"
+    #   href: https://docs.google.com/spreadsheets/d/1qdmvlnrLDH8bIeHXflAGDeM9MIV74G6Sm1zn2mCtqgM/edit#gid=0

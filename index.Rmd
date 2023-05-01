@@ -13,7 +13,14 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+NOTE: the Stats Chats website has moved: for the most up to date information please visit: [https://guides.library.unr.edu/StatsChats](https://guides.library.unr.edu/StatsChats)
+
 ## Facilitators
+
+[Carlos Ramirez](https://library.unr.edu/ramirez-reyes-carlos)  
+Office: DeLaMare library  
+Phone: (775) 682-7378 
+Email: [cramirezreyes@unr.edu](cramirezreyes@unr.edu)  
 
 [Paul Hurtado](http://pauljhurtado.com/)  
 Office: Davidson Math and Science Center 220  
